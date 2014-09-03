@@ -1,0 +1,11 @@
+ <% if current_user.places.count > 0 %>
+ <ul>
+    <% current_user.places.each do |loc| %>
+        <li>
+            <%= loc.address %>
+        </li>
+    <% end %>
+ </ul>
+ <% else %>
+ 	No places added, please add to find people around it
+ <% end %>

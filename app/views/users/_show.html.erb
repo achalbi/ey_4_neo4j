@@ -1,0 +1,90 @@
+                      <!-- content -->                      
+                        <div class="row">
+                          
+                         <!-- main col left --> 
+                         <div class="col-sm-5">
+                           
+                              <div class="panel panel-default">
+                                <div class="panel-thumbnail"><img src="<%= facebook.get_picture(current_user.uid,:type => "square", height: 370 , width: 370) %>" class="img-responsive"></div>
+                                <div class="panel-body">
+                                  <p class="lead"><%= current_user.name %></p>
+                                  <p>45 Followers, 13 Posts</p>
+                                  
+                                  <p>
+                                    <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" width="28px" height="28px">
+                                  </p>
+                                </div>
+                              </div>
+                          
+                          </div>
+                          
+                          <!-- main col right -->
+                          <div class="col-sm-7">
+                               
+
+                      
+                               <div class="panel panel-default">
+                                 <div class="panel-heading"><a  href="#address_modal" role="button" data-toggle="modal"class="pull-right">Add places</a> <h4>Places</h4></div>
+                                  <div id="places_block" class="panel-body">
+                                  <%= render partial: "users/places" %>
+                                  </div>
+                               </div>
+               
+                            
+                          </div>
+                       </div>
+          <!--/row-->
+
+
+<!--post modal-->
+<%= form_for([:add_location, current_user] , remote: true)  do %>
+<div id="address_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      Add places to find people around it
+      </div>
+      <div class="modal-body">
+          <!-- <form class="form center-block"> -->
+            <div class="form-group">
+            <%= text_area_tag :address, nil, :placeholder => "Search for your workplace/school/residence... ", :size => 75, class: 'form-control input-lg autocomplete', 'data-autocomplete' => autocomplete_location_address_users_path , 'autofocus' => '', 'data-autocomplete-label'=>"Sorry, nothing found.", 'data-auto-focus'=>'true' %>
+            </div>
+          <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+          <div>
+          <%= submit_tag "Add", class: "btn btn-primary btn-sm", 'aria-hidden'=>"true", id: "address_submit" %> 
+          
+            <ul class="pull-left list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
+      </div>  
+      </div>
+  </div>
+</div>
+</div>
+<% end %>
+<script type="text/javascript">
+   $(function() {
+      return $('.autocomplete').autocomplete({
+        minLength: 3,
+        source: function(request, response) {
+          return $.ajax({
+            url: $('.autocomplete').data('autocomplete'),
+            dataType: "json",
+            data: {
+              address: request.term
+            },
+            success: function(data) {
+              console.log(data);
+              return response(data);
+            }
+          });
+        }
+      });
+    });
+
+$("#address_modal").click(function(){
+  $(this).removeClass("btn-sm");
+  $(this).addClass("disabled");
+});
+</script>            

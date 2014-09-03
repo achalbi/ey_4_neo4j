@@ -1,0 +1,94 @@
+<% if signed_in? %>
+<% provide(:title, current_user.name) %>
+  <%= render 'users/show' %>
+<% else %>
+<% provide(:title, 'Home') %>
+
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">Express yourself</a>
+    </div>
+</div>
+
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">Express yourself</h1>
+        <p class="splash-subhead">
+                “My feelings are too loud for words and too shy for the world.” <br>
+                <text class="pull-right">     ― Dejan Stojanovic </text>
+                <br>
+        </p>
+        <p>
+            <a href="#" class="pure-button pure-button-primary" id="fb_login" data-no-turbolink><i class="fa fa-facebook-square fa-lg"></i>&nbsp; Login</a>
+        </p>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center">Are you shy to express your feelings ?  </h2>
+        <h3 class="content-head is-center">If you are, then this app is just for you.</h3>
+        <br>
+        <h1 class="is-center">4 Easy steps to Express</h1>
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+
+                <h3 class="content-subhead">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-inverse fa-stack-1x">1</i>
+                    </span>
+                    Login with Facebook
+                </h3>
+                <p>
+                    Just login with your facebook credentials, No signup required.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-inverse fa-stack-1x">2</i>
+                    </span>
+                    Set your profile
+                </h3>
+                <p>
+                    Setup your profile and add places to find people around.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-inverse fa-stack-1x">3</i>
+                    </span>
+                    Find people
+                </h3>
+                <p>
+                    Search for people around you to express your feelings.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                     <span class="fa-stack fa-lg">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-inverse fa-stack-1x">4</i>
+                    </span>
+                    Express yourself
+                </h3>
+                <p>
+                    Express your feelings anonymously, this is much easier here. You might be suprised to find out who all are/were interested in you.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="footer l-box is-center">
+        Made with love by the EY Team.
+    </div>
+
+</div>
+
+<% end %>

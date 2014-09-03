@@ -1,0 +1,40 @@
+      <div class="paginate_do">
+              <% @friends.each do |friend| %> 
+                     <!-- content -->                      
+                        <div class="row1 paginate_do">
+                          
+                         <!-- main col left --> 
+                         <div class="col-sm-3">
+                           
+                              <div class="panel panel-default">
+                                <div class="panel-thumbnail"><img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 250 , width: 250) %>" class="img-responsive"></div>
+                                <div class="panel-body">
+                                  <p class="lead"  style="min-height:58px;"><%= friend.name %></p>
+                                  <!-- <p>45 Followers, 13 Posts</p>
+                                  
+                                  <p>
+                                    <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" width="28px" height="28px">
+                                  </p> -->
+                                </div>
+                              </div>
+                          
+                          </div>
+                          
+                          <!-- main col right -->
+                          <!-- <div class="col-sm-9">
+                               
+
+                      
+                               <div class="panel panel-default">
+                                 <div class="panel-heading"><a href="#" class="pull-right">Add places</a> <h4>Profile</h4></div>
+                                  <div class="panel-body">
+                                    I am a software application developer and my interest is in application development. 
+                                  </div>
+                               </div>
+               
+                            
+                          </div> -->
+                       </div>
+          <!--/row-->
+                <% end %>      
+      </div>
