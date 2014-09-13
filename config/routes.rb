@@ -14,10 +14,11 @@ Ey::Application.routes.draw do
 
   resources :users do
     collection do
-      get :friends, :page_friends, :autocomplete_location_address
+      get :friends, :page_friends, :autocomplete_location_address, :page_search_criteria
     end
     member do
       patch :add_location
+      get :search_criteria, :likes
     end
   end
 

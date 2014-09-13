@@ -1,13 +1,17 @@
       <div class="paginate_do">
               <% @friends.each do |friend| %> 
                      <!-- content -->                      
-                        <div class="row1 paginate_do">
+                        <div class="row1 paginate_do ">
                           
                          <!-- main col left --> 
                          <div class="col-sm-3">
                            
                               <div class="panel panel-default">
-                                <div class="panel-thumbnail"><img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 250 , width: 250) %>" class="img-responsive"></div>
+                                <div class="panel-thumbnail">
+                                    <div id="user-<%= friend.neo_id %>" class="ribbon-container-sm">
+                                        <a href="/users/<%= friend.neo_id %>/likes" class="ribbon" data-remote="true"><%= current_user.rels(type: :likes, between: friend).blank? ? "Like" : "Liked" %></a>
+                                     </div>
+                                <img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 250 , width: 250) %>" class="img-responsive"></div>
                                 <div class="panel-body">
                                   <p class="lead"  style="min-height:58px;"><%= friend.name %></p>
                                   <!-- <p>45 Followers, 13 Posts</p>
@@ -38,3 +42,26 @@
           <!--/row-->
                 <% end %>      
       </div>
+
+      <script type="text/javascript">
+      $(".ribbon").click(function(){
+        if ($(this).html()=="Liked") {
+          $(this).html("Like");
+          $(this).parent().addClass("ribbon-container-sm");
+          $(this).parent().removeClass("ribbon-container-sm-liked");
+        } else{
+          $(this).html("Liked");
+          $(this).parent().removeClass("ribbon-container-sm");
+          $(this).parent().addClass("ribbon-container-sm-liked");
+        };
+      });
+
+      $(function(){
+        $(".ribbon").each(function(){
+        if ($(this).html()=="Liked") {
+          $(this).parent().removeClass("ribbon-container-sm");
+          $(this).parent().addClass("ribbon-container-sm-liked");
+        }
+      });
+      });
+      </script>

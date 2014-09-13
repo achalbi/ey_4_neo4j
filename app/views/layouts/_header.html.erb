@@ -24,11 +24,12 @@
                       <li>
                         <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
                       </li>
-                      <li>
-                        <a href="#"><span class="badge">badge</span></a>
-                      </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#search_modal" role="button" data-toggle="modal"><span class="badge">Search criteria</span></a>
+                      </li>
+
                       <li>
                         <%= link_to "Sign out " , signout_path, class: "sign_out_fb" , id: "fb_signout" %> 
                       </li>
@@ -38,3 +39,47 @@
                     </ul>
                     </nav>
                 </div>
+
+
+                <!-- search modal -->
+<%= form_for([:search_criteria, current_user] , remote: true,  method: :get)  do %>
+<div id="search_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      Search Criteria
+      </div>
+      <div class="modal-body">
+          <!-- <form class="form center-block"> -->
+            <div class="form-group margin-left-right-25">
+
+            <!-- <div id="loading_page" class=" text-center center_block active_hide loading_page" ><img src="/assets/loading.gif"></div> -->
+
+            <h4>Gender:</h4>
+              <h5>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'male' %> Male &nbsp;&nbsp;&nbsp;&nbsp;
+              <%= check_box_tag 'female' %> Female
+              </h5>
+            <h4>Location:</h4>
+              <ul>
+                <% current_user.places.each do |location| %>
+                    <li class="no-decor">
+                      <%= check_box_tag 'location_ids[]', location.address %>
+                      <%= h location.address -%>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+          <div>
+          <%= submit_tag "Search", class: "btn btn-primary btn-sm", 'aria-hidden'=>"true", id: "search_submit" %> 
+          
+      </div>  
+      </div>
+  </div>
+</div>
+</div>
+<% end %>

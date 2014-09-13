@@ -150,8 +150,50 @@ autocomplete :location, :address, :full => true
           @location.longitude = gc.longitude
           @location.save
       end
-      current_user.places << @location
-      current_user.save
+      if current_user.rels(type: :places, between: @location).blank?
+        current_user.places << @location
+        current_user.save
+      end
+  end
+
+  def loc_users
+    @users = current_user.places.users
+    u = User.find(1158)
+    loc = Location.find(1155)
+    loc.places.gender_filter('female').to_a
+    
+  end
+
+  def search_criteria
+  @friends = []
+    location_ids = params[:location_ids]#.map(&:to_i)
+    session['location_ids'] = location_ids
+    @friends = User.as(:u).places(:l).where(address: location_ids).limit(2).pluck('DISTINCT u')
+    #query = Neo4j::Session.query.match(u: :User, l: :Location)
+    #query = query.where('u.id' => current_user.neo_id)  
+    #query = query.where('l.neo_id' => location_ids)  
+    #@friends = query.where('l.id' => location_ids).pluck('DISTINCT u')
+    #@friends = @friends - Array(current_user)
+  end
+
+  def page_search_criteria
+     @friends = []
+    location_ids = session['location_ids']
+    @friends = User.as(:u).places(:l).where(address: location_ids).skip((2) * params[:page].to_i-2).limit(2).pluck('DISTINCT u')
+   # @friends = @friends - Array(current_user)
+  end
+
+  def likes
+    @user = User.find(params[:id])
+    unless  current_user.rels(type: :likes, between: @user).blank?
+      rel = current_user.rels(type: :likes, between: @user)
+      rel[0].destroy
+      current_user.save!
+    else
+      current_user.likes << @user
+      current_user.save!
+    end
+    head :ok#, :content_type => 'text/html'
   end
 
 end

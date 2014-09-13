@@ -1,5 +1,6 @@
 class User 
   include Neo4j::ActiveNode
+
   property :name, :type => String, :index => :exact
   property :mood, :type => String
   property :status, :type => String
@@ -11,19 +12,23 @@ class User
   property :remember_token, :type => String, :index => :exact
   property :fb_access_token, :type => String, :index => :exact
 
+  scope :gender_filter, ->(g){ where(gender: g)}
+
   property :friends_list
 
   serialize :friends_list
 
-  before_save :create_remember_token
+  #before_save :create_remember_token
 
   validates :email, :uniqueness => true
 
   has_many :both, :friends,  model_class: User,  rel_class: Friend
   has_many :both, :friend_girls,  model_class: User,  rel_class: Friend_girl
   has_many :both, :friend_boys,  model_class: User,  rel_class: Friend_boy
-  has_many :in, :places,  model_class: Location,  rel_class: Place
+  has_many :both, :places,  model_class: Location,  rel_class: Place
+  has_many :both, :likes, model_class: User,  rel_class: Like
 
+  #has_one :out, :users_place, type: :users_place, model_class: Location
   #has_n(:friends).to(User).relationship(Friend)
   #has_n(:friend_girls).to(User).relationship(Friend_girl)
   #has_n(:friend_boys).to(User).relationship(Friend_boy)
