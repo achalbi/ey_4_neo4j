@@ -11,7 +11,10 @@
                                     <div id="user-<%= friend.neo_id %>" class="ribbon-container-sm">
                                         <a href="/users/<%= friend.neo_id %>/likes" class="ribbon" data-remote="true"><%= current_user.rels(type: :likes, between: friend).blank? ? "Like" : "Liked" %></a>
                                      </div>
-                                <img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 250 , width: 250) %>" class="img-responsive"></div>
+                               <a href="/users/<%= friend.neo_id %>/">
+                                <img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 250 , width: 250) %>" class="img-responsive">
+                                </a> 
+                               </div>
                                 <div class="panel-body">
                                   <p class="lead"  style="min-height:58px;"><%= friend.name %></p>
                                   <!-- <p>45 Followers, 13 Posts</p>

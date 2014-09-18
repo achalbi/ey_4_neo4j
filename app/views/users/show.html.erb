@@ -1,35 +1,40 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @user.name) %>
+                      <!-- content -->                      
+                        <div class="row">
+                          
+                         <!-- main col left --> 
+                         <div class="col-sm-4 no-padding">
+                           
+                              <div class="panel panel-default">
+                                <div class="panel-thumbnail"><img src="<%= facebook.get_picture(@user.uid,:type => "square", height: 370 , width: 370) %>" class="img-responsive"></div>
+                                <div class="panel-body">
+                                  <p class="lead"><%= @user.name %></p>
+                                  <p>45 Followers, 13 Posts</p>
+                                  
+                                  <p>
+                                    <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" width="28px" height="28px">
+                                  </p>
+                                </div>
+                              </div>
+                          
+                          </div>
+                          <div class="col-sm-1">
+                            
+                          </div>
+                          <!-- main col right -->
+                          <div class="col-sm-7 no-padding">
+                               
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+                      
+                               <div class="panel panel-default">
+                                 <div class="panel-heading"><h4>Places</h4></div>
+                                  <div id="places_block" class="panel-body">
+                                  <%= render partial: "users/places", :locals => {:user => @user} %>
+                                  </div>
+                               </div>
+               
+                            
+                          </div>
+                       </div>
+          <!--/row-->
 
-<p>
-  <b>Mood:</b>
-  <%= @user.mood %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%= @user.status %>
-</p>
-
-<p>
-  <b>Dob:</b>
-  <%= @user.dob %>
-</p>
-
-<p>
-  <b>Uid:</b>
-  <%= @user.uid %>
-</p>
-
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

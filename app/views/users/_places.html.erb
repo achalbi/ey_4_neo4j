@@ -1,6 +1,6 @@
- <% if current_user.places.count > 0 %>
+ <% if user.places.count > 0 %>
  <div class="list-group">
-    <% current_user.places.each do |loc| %>
+    <% user.places.each do |loc| %>
         <a href="#" class="list-group-item">
             <%= loc.address %>
         </a>
