@@ -22,4 +22,21 @@ module UsersHelper
         return user
     end
 
+    def create_destroy_badges(oBadges, badgeType, paramBadge, user)
+            if oBadges.include?(badgeType)
+                if paramBadge.nil?
+                  rel = current_user.badges(:u, :r).where( neo_id: user.neo_id ).each_rel.select{|r| r.badgeType == badgeType}
+                  rel.map {|r| r.destroy}
+                end
+            else
+                unless paramBadge.nil?
+                    rel = Badge.new
+                    rel.badgeType = badgeType
+                    rel.from_node = current_user
+                    rel.to_node = user
+                    rel.save
+                end
+            end
+    end
+
 end

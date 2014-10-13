@@ -33,8 +33,49 @@
                                   </div>
                                </div>
                
-                            
+                            <div class="panel panel-default">
+                                 <div class="panel-heading"><a  href="#badges_modal" role="button" data-toggle="modal"class="pull-right">Give badges</a> <h4>Badges</h4></div>
+                                  <div id="badges_block" class="panel-body">
+                                  <%= render partial: "users/badges", :locals => {:user => current_user} %>
+                                  </div>
+                               </div>
                           </div>
                        </div>
           <!--/row-->
+
+
+<!-- badges modal-->
+<%= form_for([:badges, current_user] , remote: true)  do %>
+<div id="badges_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      Add places to find people around it
+      </div>
+      <div class="modal-body">
+          <!-- <form class="form center-block"> -->
+          <%= hidden_field_tag "user_id", "#{@user.neo_id}"  %>
+          <div class="form-group">
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'hot', true , @badges.include?('hot')  %> Hot</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'smart', true , @badges.include?('smart') %> Smart</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'macho', true , @badges.include?('macho') %> Macho</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'moody', true , @badges.include?('moody') %> Moody</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'kind', true , @badges.include?('kind') %> Kind</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'stingy', true , @badges.include?('stingy') %> Stingy</h5>
+
+            </div>
+          <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+          <div>
+          <%= submit_tag "Save", class: "btn btn-primary btn-sm", 'aria-hidden'=>"true", id: "badges_submit" %> 
+          
+          </div>  
+      </div>
+  </div>
+</div>
+</div>
+<% end %>
+
 

@@ -27,6 +27,7 @@ class User
   has_many :both, :friend_boys,  model_class: User,  rel_class: Friend_boy
   has_many :both, :places,  model_class: Location,  rel_class: Place
   has_many :both, :likes, model_class: User,  rel_class: Like
+  has_many :both, :badges, model_class: User,  rel_class: Badge
 
   #has_one :out, :users_place, type: :users_place, model_class: Location
   #has_n(:friends).to(User).relationship(Friend)

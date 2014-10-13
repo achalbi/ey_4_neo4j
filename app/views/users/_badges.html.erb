@@ -1,0 +1,23 @@
+ <% if current_user.badges(:u, :r).where( neo_id: @user.neo_id ).exists? %>
+ <h4><b>Badges given by me</b></h4>
+ <div class="list-group">
+ 	<% current_user.badges(:u, :r).where( neo_id: @user.neo_id ).each_with_rel do |u, r| %>
+	   <%= r[:badgeType] %><br> 
+	 <% end %>
+
+ </div>
+ <% else %>
+ 	No badges given by you
+ <% end %>
+
+ <% unless @uniq_badges.empty? %>
+  <h4><b>All Badges</b></h4>
+ <div class="list-group">
+ 	<% @all_badges.each do |k, v| %>
+	   <%= "#{k} - #{v}"  %><br> 
+	 <% end %>
+
+ </div>
+ <% else %>
+ 	No badges
+ <% end %>

@@ -63,7 +63,13 @@ autocomplete :location, :address, :full => true
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
+    @b = current_user.badges(:u, :r).where( neo_id: @user.neo_id ).pluck(:r)
+    @badges = @b.map {|b| b.badgeType}.uniq
+    @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
+    @all_badges = {}
+    @uniq_badges.each do |badge|
+      @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -194,6 +200,38 @@ autocomplete :location, :address, :full => true
       current_user.save!
     end
     head :ok#, :content_type => 'text/html'
+  end
+
+  def like_list
+    @friends = []
+    @friends = current_user.likes.limit(2)
+  end
+
+  def page_like_list
+    @friends = []
+    @friends = current_user.likes.skip((2) * params[:page].to_i-2).limit(2)
+  end
+
+  def badges
+      badges = params[:badges]
+        @user = User.find(params[:user_id])
+        @rel = current_user.badges(:u, :r).where( neo_id: @user.neo_id ).pluck(:r)
+        @badges = @rel.map {|b| b.badgeType}.uniq
+
+
+    create_destroy_badges(@badges, 'hot', params[:hot], @user)
+    create_destroy_badges(@badges, 'smart', params[:smart], @user)
+    create_destroy_badges(@badges, 'macho', params[:macho], @user)
+    create_destroy_badges(@badges, 'moody', params[:moody], @user)
+    create_destroy_badges(@badges, 'kind', params[:kind], @user)
+    create_destroy_badges(@badges, 'stingy', params[:stingy], @user)
+
+    @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
+    @all_badges = {}
+    @uniq_badges.each do |badge|
+      @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
+    end
+
   end
 
 end
