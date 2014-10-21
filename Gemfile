@@ -49,8 +49,7 @@ gem 'newrelic_rpm'
 
 #gem 'faker', '1.0.1'
 gem 'jquery-turbolinks'
-gem 'purecss'
-
+#gem 'purecss'
 
 group :production do
 #	gem 'puma'
@@ -86,7 +85,7 @@ group :doc do
 end
 
 #gem 'thin'
-gem 'neo4j', github: 'andreasronge/neo4j'
+gem 'neo4j', '3.0.0.rc.3'
 
 group :development do
   gem 'spring'

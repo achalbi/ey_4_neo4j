@@ -234,4 +234,23 @@ autocomplete :location, :address, :full => true
 
   end
 
+  def update_status
+    current_user.status = params[:value]
+    current_user.save
+
+     respond_to do |format|
+      format.html
+      format.json { render json: current_user }
+    end
+  end
+
+  def update_about_me
+    current_user.about_me = params[:value]
+    current_user.save
+
+     respond_to do |format|
+      format.html
+      format.json { render json: current_user }
+    end
+  end
 end

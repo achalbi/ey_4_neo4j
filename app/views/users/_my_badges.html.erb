@@ -1,0 +1,11 @@
+ <% unless @uniq_badges.nil? %>
+  <h4><b>All Badges</b></h4>
+ <div class="list-group">
+ 	<% @all_badges.each do |k, v| %>
+	   <%= "#{k} - #{v}"  %><br> 
+	 <% end %>
+
+ </div>
+ <% else %>
+ 	No badges
+ <% end %>

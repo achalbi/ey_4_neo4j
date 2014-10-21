@@ -2,37 +2,356 @@
                         <div class="row">
                           
                          <!-- main col left --> 
-                         <div class="col-sm-4 no-padding">
+                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                            
-                              <div class="panel panel-default">
-                                <div class="panel-thumbnail"><img src="<%= facebook.get_picture(current_user.uid,:type => "square", height: 370 , width: 370) %>" class="img-responsive"></div>
-                                <div class="panel-body">
-                                  <p class="lead"><%= current_user.name %></p>
-                                  <p>45 Followers, 13 Posts</p>
-                                  
-                                  <p>
-                                    <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" width="28px" height="28px">
-                                  </p>
+                              <!-- START Widget Panel -->
+                         <div class="widget panel">
+                            <!-- Thumbnail -->
+                            <div class="thumbnail">
+                                <!-- media -->
+                                <div class="media">
+                                    <a href="/users/<%= current_user.neo_id %>/">
+                                    <img src="<%= facebook.get_picture(current_user.uid,:type => "square", height: 400 , width: 400) %>" height="100%">
+                                  </a>
                                 </div>
+                                <!--/ media -->
+                            </div>
+                            <!--/ Thumbnail -->
+                             <!-- meta -->
+                                    <span class="meta bottom">
+                                        <h4 class="semibold mt10 text-center"><%= current_user.name %>
+                                        </h4>
+                                    </span>
+                            <!--/ meta -->
+                            <!-- blockquote -->
+                            <div class="m10-p10">
+                                
+                                <blockquote class="mt5 text-center m0-p10">
+                                    <p class="font-15"   >
+                                      <a href="#" id="xe_status" data-type="textarea" data-pk="1" class="icon-black" ><%= current_user.status %></a>
+                                    </p>
+                                </blockquote>
+                            </div>
+                                <!--/ blockquote -->
+                            <!-- panel body -->
+                            <div class="panel-body">
+                                 <!-- Nav section -->
+                                <ul class="nav nav-section nav-justified">
+                                    <li>
+                                        <div class="section">
+                                            <h4 class="nm"><i class="ico-heart-empty icon-red icon-font-55"></i></h4>
+                                            <h4 class="nm mt5"><%= current_user.rels(dir: :incoming, type: "likes").count %></h4>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="section">
+                                            <h4 class="nm"><i class="ico-shield2 icon-green icon-font-55"></i></h4>
+                                            <h4 class="nm mt5">129</h4>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="section">
+                                            <h4 class="nm"><i class="ico-blog2 icon-blue icon-font-55"></i></h4>
+                                            <h4 class="nm mt5">12</h4>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!--/ Nav section -->
+                            </div>
+                            <!--/ panel body -->
+                        </div>
+                        <!--/ END Widget Panel -->
+
+                              <div class="panel panel-teal overflow-hidden">
+                                                                  <!-- panel heading/header -->
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">My pictures</h3>
+                                      <!-- panel toolbar -->
+                                      <div class="panel-toolbar text-right">
+                                           <!-- option -->
+                                              
+                                          <div class="option">
+                                              <button class="btn demo a-color-inherit" >
+                                                <a  href="#address_modal" role="button" data-toggle="modal"class="">
+                                                  <i class="ico-pencil7"></i>
+                                                </a>              
+                                              </button>              
+                                          </div>
+                                          <!--/ option -->
+                                      </div>
+                                      <!--/ panel toolbar -->
+                                  </div>
+                                  <!--/ panel heading/header -->
+                                  <hr class="nm"><!-- horizontal line -->
+                                  <!-- START Gridster -->
+                                  <div class="img-grid">
+                                      <ul class="list-unstyled row">
+                                          <li class="col-xs-8">
+                                             <!-- Thumbnail -->
+                                              <div class="thumbnail">
+                                                  <!-- media -->
+                                                  <div class="media">
+                                                      <!-- indicator -->
+                                                      <div class="indicator"><span class="spinner" /></div>
+                                                      <!--/ indicator -->
+                                                      <img data-toggle="unveil" src="/assets/background/250x400/placeholder.jpg" data-src="/assets/background/250x400/background1.jpg" alt="Photo" height="100%" />
+                                                  </div>
+                                                  <!--/ media -->
+                                              </div>
+                                              <!--/ Thumbnail -->
+                                          </li>
+                                          <li class="col-xs-4">
+                                              <ul class="list-unstyled row">
+                                                  <li class="col-xs-12">
+                                                      <!-- thumbnail -->
+                                                      <div class="thumbnail">
+                                                          <!-- media -->
+                                                          <div class="media" style="height:100px;">
+                                                              <!-- indicator -->
+                                                              <div class="indicator"><span class="spinner"></span></div>
+                                                              <!--/ indicator -->
+                                                              <img src="/assets/background/400x400/background5.jpg" alt="Photo" />
+                                                          </div>
+                                                          <!--/ media -->
+                                                      </div>
+                                                      <!--/ thumbnail -->
+                                                  </li>
+                                              </ul>
+                                              <ul class="list-unstyled row">
+                                                  <li class="col-xs-12">
+                                                      <!-- thumbnail -->
+                                                      <div class="thumbnail">
+                                                          <!-- media -->
+                                                          <div class="media" style="height:100px;">
+                                                              <!-- indicator -->
+                                                              <div class="indicator"><span class="spinner"></span></div>
+                                                              <!--/ indicator -->
+                                                              <img src="/assets/background/400x400/background6.jpg" alt="Photo" />
+                                                          </div>
+                                                          <!--/ media -->
+                                                      </div>
+                                                      <!--/ thumbnail -->
+                                                  </li>
+                                              </ul>
+                                              <ul class="list-unstyled row">
+                                                  <li class="col-xs-12">
+                                                      <!-- thumbnail -->
+                                                      <div class="thumbnail">
+                                                          <!-- media -->
+                                                          <div class="media" style="height:100px;">
+                                                              <!-- indicator -->
+                                                              <div class="indicator"><span class="spinner"></span></div>
+                                                              <!--/ indicator -->
+                                                              <img src="/assets/background/400x400/background7.jpg" alt="Photo" />
+                                                          </div>
+                                                          <!--/ media -->
+                                                      </div>
+                                                      <!--/ thumbnail -->
+                                                  </li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <!--/ END Gridster -->
+                                  
                               </div>
                           
                           </div>
-                          <div class="col-sm-1">
-                            
-                          </div>
-                          <!-- main col right -->
-                          <div class="col-sm-7 no-padding">
-                               
 
-                      
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><a  href="#address_modal" role="button" data-toggle="modal"class="pull-right">Add places</a> <h4>Places</h4></div>
-                                  <div id="places_block" class="panel-body">
-                                  <%= render partial: "users/places", :locals => {:user => current_user} %>
+                            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+
+                              <!-- START panel -->
+                              <div class="panel panel-teal">
+                                  <!-- panel heading/header -->
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">Others think me as</h3>
+                                      <!-- panel toolbar -->
+                                      <div class="panel-toolbar text-right">
+                                          <!-- option -->
+                                              
+                                          <div class="option">
+                                              <button class="btn demo a-color-inherit" >
+                                                <a  href="#address_modal" role="button" data-toggle="modal"class="">
+                                                  <i class="ico-plus-circle"></i>
+                                                </a>              
+                                              </button>              
+                                          </div>
+                                          <!--/ option -->
+                                      </div>
+                                      <!--/ panel toolbar -->
                                   </div>
-                               </div>
-                             
+                                  <!--/ panel heading/header -->
+                                  
+                                  <!-- panel body with collapse capable -->
+                                  <div class="panel-collapse pull out">
+                                      <div class="panel-body">
+                                                <ul class="list-table">
+                                                    <li class="text-left" style="width:60px;">
+                                                        <img class="img-circle" src="/assets/avatar/avatar8.jpg" alt="" width="50px" height="50px">
+                                                    </li>
+                                                    <li class="text-left">
+                                                        <p class="nm">
+                                                          <span class="semibold">
+                                                            <blockquote class="mb0">
+                                                                <p class="font-15">You are a very cool guy that I have ever come across!!!</p>
+                                                            </blockquote>
+                                                          </span>
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                                <hr class="m0-p0">
+                                                <ul class="list-table">
+                                                          <li class="text-left" style="width:60px;">
+                                                              <img class="img-circle" src="/assets/avatar/avatar9.jpg" alt="" width="50px" height="50px">
+                                                          </li>
+                                                          <li class="text-left">
+                                                              <p class="nm">
+                                                                <span class="semibold">
+                                                                  <blockquote class="mb0">
+                                                                      <p class="font-15">Friends can help each other. A true friend is someone who lets you have total freedom to be yourself - and especially to feel. Or, not feel. Whatever you happen to be feeling at the moment is fine with them. That's what real love amounts to - letting a person be what he really is.</p>
+                                                                  </blockquote>
+                                                                </span>
+                                                              </p>
+                                                          </li>
+                                                      </ul>
+                                                 
+                                      </div>
+                                  </div>
+                                  <!--/ panel body with collapse capabale -->
+
+                                  <!-- Loading indicator -->
+                                  <div class="indicator"><span class="spinner"></span></div>
+                                  <!--/ Loading indicator -->
+                              </div>
+                              <!--/ END panel -->
+
+
+                              <!-- START panel -->
+                              <div class="panel panel-teal">
+                                  <!-- panel heading/header -->
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">Places</h3>
+                                      <!-- panel toolbar -->
+                                      <div class="panel-toolbar text-right">
+                                          <!-- option -->
+                                              
+                                          <div class="option">
+                                              <button class="btn demo a-color-inherit" >
+                                                <a  href="#address_modal" role="button" data-toggle="modal"class="">
+                                                  <i class="ico-plus-circle"></i>
+                                                </a>              
+                                              </button>              
+                                          </div>
+                                          <!--/ option -->
+                                      </div>
+                                      <!--/ panel toolbar -->
+                                  </div>
+                                  <!--/ panel heading/header -->
+                                  
+                                  <!-- panel body with collapse capable -->
+                                  <div class="panel-collapse pull out">
+                                      <div class="panel-body">
+                                          <%= render partial: "users/places", :locals => {:user => current_user} %>
+                                      </div>
+                                  </div>
+                                  <!--/ panel body with collapse capabale -->
+
+                                  <!-- Loading indicator -->
+                                  <div class="indicator"><span class="spinner"></span></div>
+                                  <!--/ Loading indicator -->
+                              </div>
+                              <!--/ END panel -->
+
+                              <!-- START panel -->
+                              <div class="panel panel-teal">
+                                  <!-- panel heading/header -->
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">Badges</h3>
+                                      
+                                  </div>
+                                  <!--/ panel heading/header -->
+                                  
+                                  <!-- panel body with collapse capable -->
+                                  <div class="panel-collapse pull out">
+                                      <div class="panel-body">
+                                          <%= render partial: "users/my_badges", :locals => {:user => current_user} %>
+                                      </div>
+                                  </div>
+                                  <!--/ panel body with collapse capabale -->
+
+                                  <!-- Loading indicator -->
+                                  <div class="indicator"><span class="spinner"></span></div>
+                                  <!--/ Loading indicator -->
+                              </div>
+                              <!--/ END panel -->
+
                           </div>
+
+                          <!-- Right Side / Bottom side -->
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="panel panel-minimal nm">
+
+                            <!-- START Bio -->
+                            <div class="panel-toolbar-wrapper hidden-sm hidden-xs">
+                                <div class="panel-toolbar">
+                                    <h5 class="semibold nm text-info"><i class="ico-info2 mr5"></i>About me</h5>
+                                </div>
+                            </div>
+                            <div class="panel-body pt0 pl0 pr0 hidden-sm hidden-xs">
+                                <p class="semibold mb5 icon-black">
+                                  <a href="#" id="xe_about_me" data-type="textarea" data-pk="1" class="icon-black"><%= current_user.about_me %></a>
+                                </p>
+                                
+                            </div>
+                            <!--/ END Bio -->
+
+                            <hr><!--horizontal line -->
+
+                            <!-- START Friend lists -->
+                            <div class="panel-toolbar-wrapper">
+                                <div class="panel-toolbar">
+                                    <h5 class="semibold nm text-info"><i class="ico-users3 mr5"></i>Recent visitors</h5>
+                                </div>
+                            </div>
+                            <div class="panel-body pt0">
+                                <div class="media-list media-list-contact">
+                                    <a href="page-message-rich.html" class="media">
+                                        <span class="media-object pull-left">
+                                            <img src="/assets/avatar/avatar1.jpg" class="img-circle" alt="">
+                                        </span>
+                                        <span class="media-body">
+                                            <span class="media-heading">Achal B I</span>
+                                            <span class="media-meta">Now</span>
+                                        </span>
+                                    </a>
+
+                                    <a href="page-message-rich.html" class="media">
+                                        <span class="media-object pull-left">
+                                            <img src="/assets/avatar/avatar2.jpg" class="img-circle" alt="">
+                                        </span>
+                                        <span class="media-body">
+                                            <span class="media-heading">Nimisha B I</span>
+                                            <span class="media-meta">10 mins ago</span>
+                                        </span>
+                                    </a>
+
+                                    <a href="page-message-rich.html" class="media">
+                                        <span class="media-object pull-left">
+                                            <img src="/assets/avatar/avatar.png" class="img-circle" alt="">
+                                        </span>
+                                        <span class="media-body">
+                                            <span class="media-heading">Kumara</span>
+                                            <span class="media-meta">Yesterday</span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <p class="nm"><a href="javascript:void(0);" class="semibold">View all</a></p>
+                            </div>
+                            <!--/ END Friend lists -->
+                        </div>
+                    </div>
+                    <!--/ Right side / bottom side -->
+
                        </div>
           <!--/row-->
 
@@ -64,9 +383,15 @@
 </div>
 </div>
 <% end %>
-<script type="text/javascript">
-   $(function() {
-      return $('.autocomplete').autocomplete({
+
+<script>
+      $("[data-toggle~=unveil]").unveil(200, function () {
+                    $(this).load(function () {
+                        $(this).addClass("unveiled");
+                    });
+                });
+
+       $('.autocomplete').autocomplete({
         minLength: 3,
         source: function(request, response) {
           return $.ajax({
@@ -76,16 +401,91 @@
               address: request.term
             },
             success: function(data) {
-              console.log(data);
               return response(data);
             }
           });
         }
       });
-    });
 
 $("#address_submit").click(function(){
   $(this).removeClass("btn-sm");
   $(this).addClass("disabled");
 });
+
+
+    //turn to inline mode
+$.fn.editable.defaults.mode = 'inline';
+
+    // user status - xeditable
+    // ================================
+
+    $("#xe_status").editable({
+        title: "Enter status",
+           rows: 5,
+           url: '/users/<%= current_user.neo_id %>/update_status', 
+           ajaxOptions: {
+               dataType: 'json' //assuming json response
+           },           
+           success: function(data, config) {
+               if(data && data.id) {  //record created, response like {"id": 2}
+                   //set pk
+                    //$(this).editable('option', 'pk', data.id);
+                   //remove unsaved class
+                   $(this).removeClass('editable-unsaved');
+                   //show messages
+                  // var msg = 'Updated successfully.';
+                  // $('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
+                   $('#save-btn').hide(); 
+                   $(this).off('save.newuser');                     
+               } else if(data && data.errors){ 
+                   //server-side validation error, response like {"errors": {"username": "username already exist"} }
+                   config.error.call(this, data.errors);
+               }               
+           },
+           error: function(errors) {
+               var msg = '';
+               if(errors && errors.responseText) { //ajax error, errors = xhr object
+                   msg = errors.responseText;
+               } else { //validation error (client-side or server-side)
+                   $.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
+               } 
+               $('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
+           }
+       });
+
+     $("#xe_about_me").editable({
+        title: "Enter status",
+           rows: 5,
+           url: '/users/<%= current_user.neo_id %>/update_about_me', 
+           ajaxOptions: {
+               dataType: 'json' //assuming json response
+           },           
+           success: function(data, config) {
+               if(data && data.id) {  //record created, response like {"id": 2}
+                   //set pk
+                    //$(this).editable('option', 'pk', data.id);
+                   //remove unsaved class
+                   $(this).removeClass('editable-unsaved');
+                   //show messages
+                  // var msg = 'Updated successfully.';
+                  // $('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
+                   $('#save-btn').hide(); 
+                   $(this).off('save.newuser');                     
+               } else if(data && data.errors){ 
+                   //server-side validation error, response like {"errors": {"username": "username already exist"} }
+                   config.error.call(this, data.errors);
+               }               
+           },
+           error: function(errors) {
+               var msg = '';
+               if(errors && errors.responseText) { //ajax error, errors = xhr object
+                   msg = errors.responseText;
+               } else { //validation error (client-side or server-side)
+                   $.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
+               } 
+               $('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
+           }
+       });
+
+
 </script>            

@@ -11,6 +11,8 @@ class User
   property :gender, :type => String, :index => :exact
   property :remember_token, :type => String, :index => :exact
   property :fb_access_token, :type => String, :index => :exact
+  property :status, :type => String
+  property :about_me, :type => String
 
   scope :gender_filter, ->(g){ where(gender: g)}
 
@@ -26,7 +28,8 @@ class User
   has_many :both, :friend_girls,  model_class: User,  rel_class: Friend_girl
   has_many :both, :friend_boys,  model_class: User,  rel_class: Friend_boy
   has_many :both, :places,  model_class: Location,  rel_class: Place
-  has_many :both, :likes, model_class: User,  rel_class: Like
+  has_many :out, :likes, model_class: User,  rel_class: Like
+  has_many :in, :likes, model_class: User,  rel_class: Like
   has_many :both, :badges, model_class: User,  rel_class: Badge
 
   #has_one :out, :users_place, type: :users_place, model_class: Location

@@ -1,15 +1,3 @@
-GIT
-  remote: git://github.com/andreasronge/neo4j.git
-  revision: c7c81c9ec98a94bc9a5ecd84fbf386cf70bf723d
-  specs:
-    neo4j (3.0.0.rc.2)
-      active_attr (~> 0.8)
-      activemodel (~> 4)
-      activesupport (~> 4)
-      neo4j-core (= 3.0.0.rc.4)
-      orm_adapter (~> 0.5.0)
-      railties (~> 4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -117,7 +105,14 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    neo4j-community (2.1.3)
+    neo4j (3.0.0.rc.3)
+      active_attr (~> 0.8)
+      activemodel (~> 4)
+      activesupport (~> 4)
+      neo4j-core (= 3.0.0.rc.4)
+      orm_adapter (~> 0.5.0)
+      railties (~> 4)
+    neo4j-community (2.1.4)
     neo4j-core (3.0.0.rc.4)
       activesupport
       httparty
@@ -145,8 +140,6 @@ GEM
     orm_adapter (0.5.0)
     os (0.9.6)
     polyglot (0.3.5)
-    purecss (0.5.0.1)
-      rails (>= 3.1)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -249,12 +242,11 @@ DEPENDENCIES
   jquery-ui-rails
   koala
   meta_request
-  neo4j!
+  neo4j (= 3.0.0.rc.3)
   neo4j-community (~> 2.0.0)
   newrelic_rpm
   omniauth-facebook
   os
-  purecss
   rails (= 4.0.2)
   rails4-autocomplete
   rails_12factor

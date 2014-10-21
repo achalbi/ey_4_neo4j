@@ -3,10 +3,12 @@
 <head>
   <title><%= full_title(yield(:title)) %></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="Express yourself landing page.">
 
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
    <%= render 'layouts/shim' %> 
@@ -15,34 +17,34 @@
 <div id="fb-root"></div>
 
 <% if signed_in? %>
-    <div class="wrapper">
-      <div class="box">
-          <div class="row row-offcanvas row-offcanvas-left">
             
-              <!-- sidebar -->
-              <%= render 'layouts/sidebar' %>
-              <!-- /sidebar -->
-            
-              <!-- main right col -->
-              <div class="column col-sm-10 col-xs-11" id="main">
-                  
                   <!-- top nav -->
-                  <%= render 'layouts/header' %>
+                    <%= render 'layouts/header' %>
                   <!-- /top nav -->
-                
-                  <div class="padding">
-                      <div class="full col-sm-9 no-padding">
-                          
-                          <%= yield %>
-							<div id="status"></div>
-                      </div><!-- /col-9 -->
-                  </div><!-- /padding -->
-              </div>
-              <!-- /main -->
             
-          </div>
-      </div>
-    </div>
+                  <!-- sidebar -->
+                    <%= render 'layouts/sidebar' %>
+                  <!-- /sidebar -->
+                
+                  
+                
+                          <!-- START Template Main -->
+                            <section id="main" role="main">
+                                <!-- START Template Container -->
+                                <div class="container-fluid">
+                                    <%= yield %>                                    
+                                </div>
+                                <!--/ END Template Container -->
+
+                                <!-- START To Top Scroller -->
+                                <a href="#" class="totop animation" data-toggle="waypoints totop" data-showanim="bounceIn" data-hideanim="bounceOut" data-offset="50%"><i class="ico-angle-up"></i></a>
+                                <!--/ END To Top Scroller -->
+
+                            </section>
+                          <!--/ END Template Main -->
+							<div id="status"></div>
+            
+ 
 
 <% else %>
 	<%= yield %>

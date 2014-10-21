@@ -19,6 +19,7 @@ Ey::Application.routes.draw do
     member do
       patch :add_location, :badges
       get :search_criteria, :likes
+      post :update_status, :update_about_me
     end
   end
 
