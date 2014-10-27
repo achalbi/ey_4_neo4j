@@ -16,9 +16,18 @@ autocomplete :location, :address, :full => true
     session['fb_access_token'] = oauth['credentials']['token']
     session['fb_error'] = nil
     @user.save!
+
     
-    #debugger
     @graph = Koala::Facebook::API.new(@user.fb_access_token)
+    @user.pictures =  []
+    @user.default_pic =  Cloudinary::Uploader.upload(@graph.get_picture(@user.uid,:type => "square", height: 400 , width: 400))["public_id"]
+    @user.pictures << @user.default_pic
+    
+    unless profile_pics.empty?
+      profile_pics.each do |pic_id|
+        @user.pictures <<  Cloudinary::Uploader.upload(@graph.get_object(pic_id)["source"])["public_id"]
+      end
+    end
     @friends = @graph.get_connections("me", "friends")
     @user.friends_list = @friends
     @user.save!
@@ -63,13 +72,15 @@ autocomplete :location, :address, :full => true
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @b = current_user.badges(:u, :r).where( neo_id: @user.neo_id ).pluck(:r)
+    @b = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
     @badges = @b.map {|b| b.badgeType}.uniq
     @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
     @all_badges = {}
     @uniq_badges.each do |badge|
       @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
     end
+    @pictures = @user.pictures
+    @testimonials = @user.rels(dir: :both, type: "testimonials")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -154,11 +165,11 @@ autocomplete :location, :address, :full => true
           @location.address = gc.address
           @location.latitude = gc.latitude
           @location.longitude = gc.longitude
-          @location.save
+          @location.save!
       end
       if current_user.rels(type: :places, between: @location).blank?
         current_user.places << @location
-        current_user.save
+        current_user.save!
       end
   end
 
@@ -215,7 +226,7 @@ autocomplete :location, :address, :full => true
   def badges
       badges = params[:badges]
         @user = User.find(params[:user_id])
-        @rel = current_user.badges(:u, :r).where( neo_id: @user.neo_id ).pluck(:r)
+        @rel = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
         @badges = @rel.map {|b| b.badgeType}.uniq
 
 
@@ -236,7 +247,7 @@ autocomplete :location, :address, :full => true
 
   def update_status
     current_user.status = params[:value]
-    current_user.save
+    current_user.save!
 
      respond_to do |format|
       format.html
@@ -246,11 +257,55 @@ autocomplete :location, :address, :full => true
 
   def update_about_me
     current_user.about_me = params[:value]
-    current_user.save
+    current_user.save!
 
      respond_to do |format|
       format.html
       format.json { render json: current_user }
     end
   end
+
+  def add_testimonial
+      @user = User.find(params[:id])
+      rel = Testimonial.new
+      rel.say = params[:testimonial]
+      rel.from_node = current_user
+      rel.to_node = @user
+      rel.save!
+
+      head :ok
+  end
+
+  def add_picture
+    @user = User.find(params[:id])
+    @pictures = []
+    @pictures << params[:pic]
+    @pics = @user.pictures
+    if @pics.nil?
+      @user.pictures = @pictures
+    else
+       @user.pictures = nil
+        @user.save!
+        @pics << @pictures[0]
+       @user.pictures =  @pics
+    end
+    @user.save!
+
+    head :ok
+
+  end
+
+  def pics_edit
+    @user = User.find(params[:id])
+    @pictures = @user.pictures
+  end
+
+  def set_default_pic
+    @user = User.find(params[:id])
+    @user.default_pic = params[:default_pic]
+    @user.save!
+    
+    head :ok
+  end
+
 end

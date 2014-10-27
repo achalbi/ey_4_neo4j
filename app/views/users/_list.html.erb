@@ -10,9 +10,9 @@
                             <% @like = current_user.rels(type: :likes, between: friend).blank? ? true : false %>
 
                             <% if @like %>
-                              <a href='/users/<%= friend.neo_id %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
+                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
                             <% else %>
-                              <a href='/users/<%= friend.neo_id %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
+                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
                             <% end %>
                                                          
                           <!--/ panel ribbon -->
@@ -21,7 +21,7 @@
                             <div class="thumbnail">
                                 <!-- media -->
                                 <div class="media">
-                                    <a href="/users/<%= friend.neo_id %>/">
+                                    <a href="/users/<%= friend.uuid %>/">
                                     <img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 400 , width: 400) %>" height="100%">
                                   </a>
                                 </div>
@@ -34,11 +34,13 @@
                                     </span>
                             <!--/ meta -->
                             <!-- blockquote -->
+                            <% unless friend.status.nil? %>
                             <div class="m10-p10">
                                 <blockquote class="mt5 text-muted text-center m0-p10">
-                                    <p class="font-15">Truth can be stated in a thousand different ways, yet each one can be true.  </p>
+                                    <p class="font-15 icon-black"><%= friend.status %></p>
                                 </blockquote>
                             </div>
+                            <% end %>
                                 <!--/ blockquote -->
                             <!-- panel body -->
                             <div class="panel-body">
@@ -47,13 +49,13 @@
                                     <li>
                                         <div class="section">
                                             <h4 class="nm"><i class="ico-heart-empty icon-red icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">12.9k</h4>
+                                            <h4 class="nm mt5"><%= friend.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
                                             <h4 class="nm"><i class="ico-shield2 icon-green icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">129</h4>
+                                            <h4 class="nm mt5"><%= friend.rels(dir: :incoming, type: "badges").count %></h4>
                                         </div>
                                     </li>
                                     <li>

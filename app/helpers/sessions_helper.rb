@@ -23,7 +23,7 @@ module SessionsHelper
   end
 
   def sign_out
-    self.current_user = nil
+    current_user = nil
     session.delete(:return_to)
     cookies.delete(:remember_token)
     session[:return_to] = root_url
@@ -71,5 +71,14 @@ module SessionsHelper
     @friends
   end
 
+  def profile_pics
+    @arr = facebook.get_connection("me","albums").map {|p| p["id"] if p["name"] == "Profile Pictures" }.compact
+    @photo_ids = []
+    unless @arr.empty?
+      album_id = @arr[0]
+      @photo_ids = facebook.get_connections(album_id, "photos").map {|p| p["id"]}
+    end
+    @photo_ids
+  end
     
 end

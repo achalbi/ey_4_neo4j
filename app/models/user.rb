@@ -13,12 +13,18 @@ class User
   property :fb_access_token, :type => String, :index => :exact
   property :status, :type => String
   property :about_me, :type => String
+  property :default_pic, :type => String
 
   scope :gender_filter, ->(g){ where(gender: g)}
 
   property :friends_list
 
   serialize :friends_list
+
+  property :pictures
+  
+  serialize :pictures
+
 
   #before_save :create_remember_token
 
@@ -29,8 +35,8 @@ class User
   has_many :both, :friend_boys,  model_class: User,  rel_class: Friend_boy
   has_many :both, :places,  model_class: Location,  rel_class: Place
   has_many :out, :likes, model_class: User,  rel_class: Like
-  has_many :in, :likes, model_class: User,  rel_class: Like
   has_many :both, :badges, model_class: User,  rel_class: Badge
+  has_many :both, :testimonials, model_class: User,  rel_class: Testimonial
 
   #has_one :out, :users_place, type: :users_place, model_class: Location
   #has_n(:friends).to(User).relationship(Friend)

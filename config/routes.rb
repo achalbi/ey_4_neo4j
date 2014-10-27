@@ -17,8 +17,8 @@ Ey::Application.routes.draw do
       get :friends, :page_friends, :autocomplete_location_address, :page_search_criteria, :like_list, :page_like_list
     end
     member do
-      patch :add_location, :badges
-      get :search_criteria, :likes
+      patch :add_location, :badges, :add_testimonial, :add_picture
+      get :search_criteria, :likes, :pics_edit, :set_default_pic
       post :update_status, :update_about_me
     end
   end

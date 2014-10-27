@@ -79,13 +79,18 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
 #gem 'thin'
-gem 'neo4j', '3.0.0.rc.3'
+gem 'neo4j'
+
+#gem 'carrierwave'
+gem 'cloudinary'
+#gem 'mini_magick', '3.5.0'
 
 group :development do
   gem 'spring'
@@ -96,4 +101,5 @@ group :development do
   gem 'debugger'
 
   gem 'foreman'
+ # gem 'rspec-rails' 
 end

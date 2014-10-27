@@ -1,7 +1,7 @@
- <% if current_user.badges(:u, :r).where( neo_id: @user.neo_id ).exists? %>
+ <% if current_user.badges(:u, :r).where( uuid: @user.uuid ).exists? %>
  <h4><b>Badges given by me</b></h4>
  <div class="list-group">
- 	<% current_user.badges(:u, :r).where( neo_id: @user.neo_id ).each_with_rel do |u, r| %>
+ 	<% current_user.badges(:u, :r).where( uuid: @user.uuid ).each_with_rel do |u, r| %>
 	   <%= r[:badgeType] %><br> 
 	 <% end %>
 
