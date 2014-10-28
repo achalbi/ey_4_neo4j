@@ -24,6 +24,7 @@
 //= require ../plugins/xeditable/js/bootstrap-editable.min
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/lib/typeahead
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/typeaheadjs
+//= require ../plugins/magnific/js/jquery.magnific-popup.min
 //= require_tree ../plugins/jvectormap/.
 //= require_tree ../plugins/gmaps/.
 //= require_tree ./maps/.

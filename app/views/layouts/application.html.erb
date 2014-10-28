@@ -14,7 +14,6 @@
    <%= render 'layouts/shim' %> 
 </head>
 <body>
-<div id="fb-root"></div>
 
 <% if signed_in? %>
             
@@ -42,12 +41,13 @@
 
                             </section>
                           <!--/ END Template Main -->
-							<div id="status"></div>
+<div id="fb-root"></div>
+              <div id="status"></div>
             
  
 
 <% else %>
-	<%= yield %>
+  <%= yield %>
 <% end %>
 
 
@@ -55,7 +55,7 @@
 </html>
 <script>
 
-	Turbolinks.enableTransitionCache();
+  Turbolinks.enableTransitionCache();
 
     $('#fb_login').click(function(){
         checkLoginState();

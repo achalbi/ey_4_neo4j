@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 #require 'rails/all'
 
  require 'rails'
- require 'debugger'
+# require 'debugger'
 # require 'neo4j-will_paginate'
 
  %w(

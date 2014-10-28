@@ -299,8 +299,7 @@
                     </div>
                 </div>
             </div>
-            <%= render partial: 'users/profile_pics' %>
-
+            
       </div>
       <div class="dis-none-imp">
         <%= text_field_tag 'pic' %>
@@ -323,20 +322,24 @@
       Edit profile pictures
       </div>
       <div class="modal-body" id="pics_modal_body">
-          <div class="indicator"><span class="spinner" /></div>
+          <div class="row shuffle-grid" id="shuffle-grid">
+              <div class="indicator"><span class="spinner" /></div>
+          </div>
       </div>
 
       <div class="modal-footer">
           <div>
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-primary btn-sm">Close</button> 
+            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-primary btn-sm" id="close_pics_modal">Close</button> 
           </div>  
       </div>
   </div>
 </div>
 </div>
 
-
 <script>
+
+
+
 $('#pics_link').click(function(){
   $.getScript( "users/<%= current_user.uuid %>/pics_edit");
 });
