@@ -83,6 +83,9 @@ end
 #gem 'thin'
 gem 'neo4j'
 
+gem 'rails-timeago'
+gem 'browser-timezone-rails'
+
 #gem 'carrierwave'
 gem 'cloudinary'
 #gem 'mini_magick', '3.5.0'
@@ -93,7 +96,11 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
- # gem 'debugger'
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
 
   gem 'foreman'
  # gem 'rspec-rails' 

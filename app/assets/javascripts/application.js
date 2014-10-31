@@ -13,10 +13,14 @@
 //= require jquery.min
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.cookie
+//= require jstz
 //= require jquery-ui
+//= require rails-timeago
 //= require autocomplete-rails
 //= require turbolinks
 //= require ./jquery-migrate.min
+//= require browser_timezone_rails/set_time_zone
 //= require ./bootstrap.min
 //= require ./core
 //= require ../plugins/sparkline/js/jquery.sparkline.min

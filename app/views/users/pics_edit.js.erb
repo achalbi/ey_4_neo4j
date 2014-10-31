@@ -1,6 +1,6 @@
-$("#shuffle-grid").html("<%= j render partial: 'users/pics_edit' %>");
+$("#pics_modal_body").html("<%= j render partial: 'users/pics_edit' %>");
 <% if @pictures.nil? %>
-	$("#shuffle-grid").html("<h4 class='text-center'> No pictures added </h4>");
+	$("#pics_modal_body").html("<h4 class='text-center'> No pictures added </h4>");
 <% end %>
 $("[data-toggle~=unveil]").unveil(200, function () {
 	$(this).load(function () {
@@ -10,14 +10,10 @@ $("[data-toggle~=unveil]").unveil(200, function () {
 
 
 
-
 $(".set_default").click(function(){
 	$(".set_default").html("<i class='ico-heart icon-silver'></i>");
 	$(this).html("<i class='ico-heart icon-red'></i>");
 	var pic = $(this).prev('p').html();
-	$.getScript("users/<%= @user.uuid %>/set_default_pic?default_pic="+pic, function(){
-		$(".default_pic").html("<%= j render 'users/default_pic' %>");
-	});
-		$(".default_pic").html("<%= j render 'users/default_pic' %>");
+	$.getScript("users/<%= @user.uuid %>/set_default_pic?default_pic="+pic);
 });
 

@@ -72,13 +72,25 @@ module SessionsHelper
   end
 
   def profile_pics
-    @arr = facebook.get_connection("me","albums").map {|p| p["id"] if p["name"] == "Profile Pictures" }.compact
+    @arr = facebook.get_connections("me","albums").map {|p| p["id"] if p["name"] == "Profile Pictures" }.compact
     @photo_ids = []
     unless @arr.empty?
       album_id = @arr[0]
-      @photo_ids = facebook.get_connections(album_id, "photos").map {|p| p["id"]}
+      @user_pics = current_user.fb_pictures
+      if @user_pics.nil?
+        @photo_ids = facebook.get_connections(album_id, "photos").map {|p| p["id"]}
+      else
+        pics = []
+        pics = facebook.get_connections(album_id, "photos").map {|p| p["id"]}
+        pics.each do |pic|
+          unless @user_pics.include?(pic)
+             current_user.fb_pictures << pic
+             @photo_ids << pic
+          end
+        end
+      end
     end
     @photo_ids
   end
-    
+
 end

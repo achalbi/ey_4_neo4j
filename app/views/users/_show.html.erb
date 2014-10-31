@@ -9,7 +9,7 @@
                             <!-- Thumbnail -->
                             <div class="thumbnail">
                                 <!-- media -->
-                                <div class="media default_pic">
+                                <div class="media default_pic" id="default_pic">
                                     <%= render  'users/default_pic' %>
                                 </div>
                                 <!--/ media -->
@@ -37,20 +37,25 @@
                                 <ul class="nav nav-section nav-justified">
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-heart-empty icon-red icon-font-55"></i></h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                            </h4>
                                             <h4 class="nm mt5"><%= current_user.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-shield2 icon-green icon-font-55"></i></h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/pagequality1x64.png" alt="" class="img-responsive center_block">
+                                            </h4>
                                             <h4 class="nm mt5"><%= current_user.rels(dir: :incoming, type: "badges").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-blog2 icon-blue icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">12</h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/seocopywriting1x64.png" alt="" class="img-responsive center_block"></h4>
+                                            <h4 class="nm mt5"><%= @testimonials.nil? ? 0 : @testimonials.count %></h4>
                                         </div>
                                     </li>
                                 </ul>
@@ -84,14 +89,14 @@
                                   </div>
                                   <!--/ panel heading/header -->
                                   <hr class="nm"><!-- horizontal line -->
-                                  <%= render 'users/pics_grid' %>
-                                  
+                                  <div class="images_div" href="#">
+                                    <%= render 'users/pics_grid' %>
+                                  </div>
                               </div>
                           
                           </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
-                              <% unless @testimonials.nil? %>
                               <!-- START panel -->
                               <div class="panel panel-teal">
                                   <!-- panel heading/header -->
@@ -114,7 +119,6 @@
                                   <!--/ Loading indicator -->
                               </div>
                               <!--/ END panel -->
-                              <% end %>
 
                               <!-- START panel -->
                               <div class="panel panel-teal">
@@ -205,37 +209,24 @@
                             </div>
                             <div class="panel-body pt0">
                                 <div class="media-list media-list-contact">
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar1.jpg" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Achal B I</span>
-                                            <span class="media-meta">Now</span>
-                                        </span>
-                                    </a>
-
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar2.jpg" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Nimisha B I</span>
-                                            <span class="media-meta">10 mins ago</span>
-                                        </span>
-                                    </a>
-
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar.png" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Kumara</span>
-                                            <span class="media-meta">Yesterday</span>
-                                        </span>
-                                    </a>
+                                      <% @visit_rels = current_user.rels(dir: :incoming, type: "visits")  %>
+                                      <% if @visit_rels.count > 0 %>
+                                        <% @visit_rels.each do |rel| %>
+                                          <a href="/users/<%= rel.from_node.uuid %>/" class="media">
+                                              <span class="media-object pull-left">
+                                                  <img src='<%= cloudinary_url( rel.from_node.default_pic, :width => 50, :height => 50, :crop => :fill, :gravity => :faces) %>' class="img-circle" alt="">
+                                              </span>
+                                              <span class="media-body">
+                                                  <span class="media-heading"><%= rel.from_node.name %></span>
+                                                  <span class="media-meta"><%= timeago_tag rel.updated_at, :nojs => true, :limit => 10.days.ago %></span>
+                                              </span>
+                                          </a>
+                                        <% end %>
+                                      <% else %>
+                                        <p  class="nm">None</p>
+                                      <% end %>
                                 </div>
-                                <p class="nm"><a href="javascript:void(0);" class="semibold">View all</a></p>
+                                <p class="nm dis-none-imp"><a href="javascript:void(0);" class="semibold">View all</a></p>
                             </div>
                             <!--/ END Friend lists -->
                         </div>
@@ -319,12 +310,10 @@
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      Edit profile pictures
+      Profile pictures (set visiblity / set default picture)
       </div>
       <div class="modal-body" id="pics_modal_body">
-          <div class="row shuffle-grid" id="shuffle-grid">
               <div class="indicator"><span class="spinner" /></div>
-          </div>
       </div>
 
       <div class="modal-footer">
@@ -335,12 +324,25 @@
   </div>
 </div>
 </div>
-
+<div class="dis-none-imp">
+  <% unless @pictures.nil? %>
+      <% @pictures.each do |pic| %>
+        <a href="<%= cloudinary_url(pic, :crop => :fill) %>" class="btn btn-default profile_pics" title="view picture">1</a>
+      <% end %>
+  <% end %>
+</div>
 <script>
-
-
+ 
+         $(".profile_pics").magnificPopup({
+              type: "image",
+              gallery: {
+                  enabled: true
+              }
+          });
 
 $('#pics_link').click(function(){
+  $("#pics_modal_body").empty();
+  $("#pics_modal_body").html("<h4 class='text-center'> Loading... </h4>");
   $.getScript( "users/<%= current_user.uuid %>/pics_edit");
 });
 

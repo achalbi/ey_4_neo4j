@@ -165,4 +165,18 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+
+       $('body').on('click', '.images_div', function(){
+        $(".profile_pics").magnificPopup({
+              type: "image",
+              gallery: {
+                  enabled: true
+              }
+          }).magnificPopup('open');
+
+       
+        
+      });
+
+
 </script>

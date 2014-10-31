@@ -16,22 +16,38 @@ autocomplete :location, :address, :full => true
     session['fb_access_token'] = oauth['credentials']['token']
     session['fb_error'] = nil
     @user.save!
-
+    sign_in @user
     
     @graph = Koala::Facebook::API.new(@user.fb_access_token)
     @user.pictures =  []
-    @user.default_pic =  Cloudinary::Uploader.upload(@graph.get_picture(@user.uid,:type => "square", height: 400 , width: 400))["public_id"]
-    @user.pictures << @user.default_pic
-    
+    @user.visible_pictures = []
+    if @user.default_pic.nil?
+      @user.default_pic =  Cloudinary::Uploader.upload(@graph.get_picture(@user.uid,:type => "square", height: 400 , width: 400))["public_id"]
+      default_pic = @user.default_pic
+      @user.pictures << default_pic
+      @user.visible_pictures << default_pic
+    end
+    @user.save!
+    @pics = @user.pictures
+    @v_pics = @user.visible_pictures
+
+       @user.pictures = nil
+       @user.visible_pictures = nil
+       @user.save!
+
     unless profile_pics.empty?
       profile_pics.each do |pic_id|
-        @user.pictures <<  Cloudinary::Uploader.upload(@graph.get_object(pic_id)["source"])["public_id"]
+        picture =  Cloudinary::Uploader.upload(@graph.get_object(pic_id)["source"])["public_id"]
+        @pics << picture
+        @v_pics << picture
       end
     end
+    @user.pictures =  @pics
+    @user.visible_pictures =  @v_pics
+
     @friends = @graph.get_connections("me", "friends")
     @user.friends_list = @friends
     @user.save!
-    sign_in @user
     
     create_fb_friends(@user.uid, @friends)
     sign_in @user
@@ -72,6 +88,20 @@ autocomplete :location, :address, :full => true
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    unless @user.uuid == current_user.uuid
+      unless  current_user.rels(dir: :outgoing, type: :visits, between: @user).blank?
+        rel = current_user.rels(dir: :outgoing, type: :visits, between: @user)
+        rel[0].count = rel[0].count + 1
+        rel[0].save!
+      else
+        rel = Visit.new
+        rel.from_node = current_user
+        rel.to_node = @user
+        rel.count = 1
+        rel.save!
+      end
+        current_user.save!
+    end
     @b = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
     @badges = @b.map {|b| b.badgeType}.uniq
     @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
@@ -80,7 +110,7 @@ autocomplete :location, :address, :full => true
       @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
     end
     @pictures = @user.pictures
-    @testimonials = @user.rels(dir: :both, type: "testimonials")
+    @testimonials = @user.testimonials
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -267,13 +297,17 @@ autocomplete :location, :address, :full => true
 
   def add_testimonial
       @user = User.find(params[:id])
-      rel = Testimonial.new
-      rel.say = params[:testimonial]
-      rel.from_node = current_user
-      rel.to_node = @user
-      rel.save!
+      testimonial = Testimonial.new
+      testimonial.say = params[:testimonial]
+      testimonial.save!
 
-      head :ok
+      rel1 = Write_testimonial.create(from_node: current_user, to_node: testimonial)
+      rel1.save!
+
+      rel2 = My_testimonial.create(from_node: testimonial, to_node: @user)
+      rel2.save!
+
+      @testimonials = @user.testimonials
   end
 
   def add_picture
@@ -304,7 +338,23 @@ autocomplete :location, :address, :full => true
     @user = User.find(params[:id])
     @user.default_pic = params[:default_pic]
     @user.save!
-    
+
+  end
+
+  def set_visible_pic
+    @user = User.find(params[:id])
+     @v_pics = @user.visible_pictures
+     @user.visible_pictures = nil
+     @user.save!
+    if params[:status] == 'true'
+      @v_pics << params[:visible_pic]
+      @user.visible_pictures = @v_pics
+    else
+      @v_pics.delete(params[:visible_pic])
+      @user.visible_pictures = @v_pics
+    end
+    @user.save!
+
     head :ok
   end
 

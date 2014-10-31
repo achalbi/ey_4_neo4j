@@ -7,7 +7,7 @@
                             <a href="javascript:void(0);" class="panel-ribbon panel-ribbon-primary"><i class="ico-info"></i></a>
                           <!--/ panel ribbon -->
                           <!-- panel ribbon -->
-                            <% @like = current_user.rels(type: :likes, between: friend).blank? ? true : false %>
+                            <% @like = current_user.rels(dir: :outgoing, type: :likes, between: friend).blank? ? true : false %>
 
                             <% if @like %>
                               <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
@@ -48,20 +48,25 @@
                                 <ul class="nav nav-section nav-justified">
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-heart-empty icon-red icon-font-55"></i></h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                            </h4>
                                             <h4 class="nm mt5"><%= friend.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-shield2 icon-green icon-font-55"></i></h4>
+                                            <h4 class="nm"><img src="/assets/icons/pagequality1x64.png" alt="" class="img-responsive center_block"></h4>
                                             <h4 class="nm mt5"><%= friend.rels(dir: :incoming, type: "badges").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-blog2 icon-blue icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">12</h4>
+                                            <h4 class="nm"><img src="/assets/icons/seocopywriting1x64.png" alt="" class="img-responsive center_block"></h4>
+                                            <h4 class="nm mt5">
+                                              <% @tm = friend.rels(dir: :incoming, type: "testimonials") %>
+                                              <%= @tm.nil? ? 0 : @tm.count %>
+                                            </h4>
                                         </div>
                                     </li>
                                 </ul>

@@ -304,7 +304,7 @@
                     <li class="dropdown profile">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="meta">
-                                <span class="avatar"><img src="<%= facebook.get_picture(current_user.uid,:type => "square", height: 30 , width: 30) %>" class="img-circle" alt="" /></span>
+                                <span class="avatar"><img src="<%= cloudinary_url( current_user.default_pic, :width => 30, :height => 30, :crop => :fill, :gravity => :faces) %>" class="img-circle" alt="" /></span>
                                 <span class="text hidden-xs hidden-sm pl5"><%= current_user.name %></span>
                                 <span class="caret"></span>
                             </span>

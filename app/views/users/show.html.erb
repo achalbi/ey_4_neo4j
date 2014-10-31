@@ -11,9 +11,9 @@
                             <div class="thumbnail">
                                 <!-- media -->
                                 <div class="media">
-                                    <a href="/users/<%= @user.uuid %>/">
-                                    <img src="<%= facebook.get_picture(@user.uid,:type => "square", height: 400 , width: 400) %>" height="100%">
-                                  </a>
+                                  <div class="media default_pic" id="default_pic">
+                                    <img src='<%= cloudinary_url( @user.default_pic, :width => 340, :height => 400, :crop => :fill, :gravity => :faces) %>' width='100%'>
+                                  </div>
                                 </div>
                                 <!--/ media -->
                             </div>
@@ -24,34 +24,43 @@
                                         </h4>
                                     </span>
                             <!--/ meta -->
+                            <% unless @user.status.nil? %>
                             <!-- blockquote -->
                             <div class="m10-p10">
                                 
                                 <blockquote class="mt5 text-center m0-p10">
-                                    <p class="font-15">Truth can be stated in a thousand different ways, yet each one can be true.  </p>
+                                    <p class="font-15"   >
+                                      <a href="#" class="icon-black" ><%= @user.status %></a>
+                                    </p>
                                 </blockquote>
                             </div>
-                                <!--/ blockquote -->
+                            <!--/ blockquote -->
+                            <% end %>
                             <!-- panel body -->
                             <div class="panel-body">
                                  <!-- Nav section -->
                                 <ul class="nav nav-section nav-justified">
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-heart-empty icon-red icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">12.9k</h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                            </h4>
+                                            <h4 class="nm mt5"><%= @user.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-shield2 icon-green icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">129</h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/pagequality1x64.png" alt="" class="img-responsive center_block">
+                                            </h4>
+                                            <h4 class="nm mt5"><%= @user.rels(dir: :incoming, type: "badges").count %></h4>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="section">
-                                            <h4 class="nm"><i class="ico-blog2 icon-blue icon-font-55"></i></h4>
-                                            <h4 class="nm mt5">12</h4>
+                                            <h4 class="nm">
+                                              <img src="/assets/icons/seocopywriting1x64.png" alt="" class="img-responsive center_block"></h4>
+                                            <h4 class="nm mt5 testimonials_count"><%= @testimonials.blank? ? 0 : @testimonials.count %></h4>
                                         </div>
                                     </li>
                                 </ul>
@@ -65,100 +74,18 @@
                                                                   <!-- panel heading/header -->
                                   <div class="panel-heading">
                                       <h3 class="panel-title">My pictures</h3>
-                                      <!-- panel toolbar -->
-                                      <div class="panel-toolbar text-right">
-                                           <!-- option -->
-                                              
-                                          <div class="option">
-                                              <button class="btn demo a-color-inherit" >
-                                                <a  href="#address_modal" role="button" data-toggle="modal"class="">
-                                                  <i class="ico-pencil7"></i>
-                                                </a>              
-                                              </button>              
-                                          </div>
-                                          <!--/ option -->
-                                      </div>
-                                      <!--/ panel toolbar -->
                                   </div>
                                   <!--/ panel heading/header -->
                                   <hr class="nm"><!-- horizontal line -->
-                                  <!-- START Gridster -->
-                                  <div class="img-grid">
-                                      <ul class="list-unstyled row">
-                                          <li class="col-xs-8">
-                                             <!-- Thumbnail -->
-                                              <div class="thumbnail">
-                                                  <!-- media -->
-                                                  <div class="media">
-                                                      <!-- indicator -->
-                                                      <div class="indicator"><span class="spinner" /></div>
-                                                      <!--/ indicator -->
-                                                      <img data-toggle="unveil" src="/assets/background/250x400/placeholder.jpg" data-src="/assets/background/250x400/background1.jpg" alt="Photo" height="100%" />
-                                                  </div>
-                                                  <!--/ media -->
-                                              </div>
-                                              <!--/ Thumbnail -->
-                                          </li>
-                                          <li class="col-xs-4">
-                                              <ul class="list-unstyled row">
-                                                  <li class="col-xs-12">
-                                                      <!-- thumbnail -->
-                                                      <div class="thumbnail">
-                                                          <!-- media -->
-                                                          <div class="media" style="height:100px;">
-                                                              <!-- indicator -->
-                                                              <div class="indicator"><span class="spinner"></span></div>
-                                                              <!--/ indicator -->
-                                                              <img src="/assets/background/400x400/background5.jpg" alt="Photo" />
-                                                          </div>
-                                                          <!--/ media -->
-                                                      </div>
-                                                      <!--/ thumbnail -->
-                                                  </li>
-                                              </ul>
-                                              <ul class="list-unstyled row">
-                                                  <li class="col-xs-12">
-                                                      <!-- thumbnail -->
-                                                      <div class="thumbnail">
-                                                          <!-- media -->
-                                                          <div class="media" style="height:100px;">
-                                                              <!-- indicator -->
-                                                              <div class="indicator"><span class="spinner"></span></div>
-                                                              <!--/ indicator -->
-                                                              <img src="/assets/background/400x400/background6.jpg" alt="Photo" />
-                                                          </div>
-                                                          <!--/ media -->
-                                                      </div>
-                                                      <!--/ thumbnail -->
-                                                  </li>
-                                              </ul>
-                                              <ul class="list-unstyled row">
-                                                  <li class="col-xs-12">
-                                                      <!-- thumbnail -->
-                                                      <div class="thumbnail">
-                                                          <!-- media -->
-                                                          <div class="media" style="height:100px;">
-                                                              <!-- indicator -->
-                                                              <div class="indicator"><span class="spinner"></span></div>
-                                                              <!--/ indicator -->
-                                                              <img src="/assets/background/400x400/background7.jpg" alt="Photo" />
-                                                          </div>
-                                                          <!--/ media -->
-                                                      </div>
-                                                      <!--/ thumbnail -->
-                                                  </li>
-                                              </ul>
-                                          </li>
-                                      </ul>
+                                   <div class="images_div" href="#">
+                                    <%= render 'users/pics_grid' %>
                                   </div>
-                                  <!--/ END Gridster -->
                                   
                               </div>
                           
                           </div>
 
                             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
-                              <% unless @testimonials.nil? %>
                               <!-- START panel -->
                               <div class="panel panel-teal">
                                   <!-- panel heading/header -->
@@ -194,7 +121,6 @@
                                   <!--/ Loading indicator -->
                               </div>
                               <!--/ END panel -->
-                              <% end %>
 
                               <!-- START panel -->
                               <div class="panel panel-teal">
@@ -260,26 +186,23 @@
                           <!-- Right Side / Bottom side -->
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="panel panel-minimal nm">
-
+                          <% unless @user.about_me.blank? %>
                             <!-- START Bio -->
                             <div class="panel-toolbar-wrapper hidden-sm hidden-xs">
                                 <div class="panel-toolbar">
                                     <h5 class="semibold nm text-info"><i class="ico-info2 mr5"></i>About me</h5>
                                 </div>
-                                <div class="panel-toolbar text-right">
-                                    <button class="btn btn-sm btn-default"><i class="ico-pencil7"></i></button>
-                                </div>
                             </div>
                             <div class="panel-body pt0 hidden-sm hidden-xs">
-                                <p class="semibold mb5">
-                                  Hi, I am a software developer and my passion is to turn ideas into reality, because its fun ;)
+                                <p class="semibold mb5 icon-black">
+                                    <%= @user.about_me %>
                                 </p>
-                                
                             </div>
                             <!--/ END Bio -->
 
                             <hr><!--horizontal line -->
 
+                            <% end %> 
                             <!-- START Friend lists -->
                             <div class="panel-toolbar-wrapper">
                                 <div class="panel-toolbar">
@@ -288,37 +211,24 @@
                             </div>
                             <div class="panel-body pt0">
                                 <div class="media-list media-list-contact">
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar1.jpg" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Achal B I</span>
-                                            <span class="media-meta">Now</span>
-                                        </span>
-                                    </a>
-
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar2.jpg" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Nimisha B I</span>
-                                            <span class="media-meta">10 mins ago</span>
-                                        </span>
-                                    </a>
-
-                                    <a href="page-message-rich.html" class="media">
-                                        <span class="media-object pull-left">
-                                            <img src="/assets/avatar/avatar.png" class="img-circle" alt="">
-                                        </span>
-                                        <span class="media-body">
-                                            <span class="media-heading">Kumara</span>
-                                            <span class="media-meta">Yesterday</span>
-                                        </span>
-                                    </a>
+                                      <% @visit_rels = @user.rels(dir: :incoming, type: "visits")  %>
+                                      <% if @visit_rels.count > 0 %>
+                                        <% @visit_rels.each do |rel| %>
+                                          <a href="/users/<%= rel.from_node.uuid %>/" class="media">
+                                              <span class="media-object pull-left">
+                                                  <img src='<%= cloudinary_url( rel.from_node.default_pic, :width => 50, :height => 50, :crop => :fill, :gravity => :faces) %>' class="img-circle" alt="">
+                                              </span>
+                                              <span class="media-body">
+                                                  <span class="media-heading"><%= rel.from_node.name %></span>
+                                                  <span class="media-meta"><%= timeago_tag rel.updated_at, :nojs => true, :limit => 10.days.ago %></span>
+                                              </span>
+                                          </a>
+                                        <% end %>
+                                      <% else %>
+                                        <p  class="nm">None</p>
+                                      <% end %>
                                 </div>
-                                <p class="nm"><a href="javascript:void(0);" class="semibold">View all</a></p>
+                                <p class="nm dis-none-imp"><a href="javascript:void(0);" class="semibold">View all</a></p>
                             </div>
                             <!--/ END Friend lists -->
                         </div>
@@ -376,7 +286,7 @@
       <div class="modal-body">
           <!-- <form class="form center-block"> -->
             <div class="form-group">
-            <%= text_area_tag :testimonial, nil, :placeholder => "Write testimonial", :size => 75, class: 'form-control input-lg' %>
+            <%= text_area_tag :testimonial, nil, :placeholder => "Write testimonial", :size => 75, class: 'form-control input-lg content_text' %>
             </div>
           <!-- </form> -->
       </div>

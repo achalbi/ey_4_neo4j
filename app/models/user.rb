@@ -18,12 +18,16 @@ class User
   scope :gender_filter, ->(g){ where(gender: g)}
 
   property :friends_list
-
   serialize :friends_list
 
   property :pictures
-  
   serialize :pictures
+
+  property :visible_pictures
+  serialize :visible_pictures
+
+  property :fb_pictures
+  serialize :fb_pictures
 
 
   #before_save :create_remember_token
@@ -36,7 +40,12 @@ class User
   has_many :both, :places,  model_class: Location,  rel_class: Place
   has_many :out, :likes, model_class: User,  rel_class: Like
   has_many :both, :badges, model_class: User,  rel_class: Badge
-  has_many :both, :testimonials, model_class: User,  rel_class: Testimonial
+  has_many :out, :write_testimonials, model_class: Testimonial,  rel_class: Write_testimonial
+  has_many :out, :like_testimonials, model_class: Testimonial,  rel_class: Like_testimonial
+  has_many :in, :testimonials, model_class: Testimonial,  rel_class: My_testimonial
+  has_many :out, :profile_pics,  model_class: Picture,  rel_class: Profile
+  #has_one :out, :default_pics,  model_class: Picture,  rel_class: Profile
+  has_many :out, :visits,  model_class: User,  rel_class: Visit
 
   #has_one :out, :users_place, type: :users_place, model_class: Location
   #has_n(:friends).to(User).relationship(Friend)

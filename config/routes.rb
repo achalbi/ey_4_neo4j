@@ -18,7 +18,7 @@ Ey::Application.routes.draw do
     end
     member do
       patch :add_location, :badges, :add_testimonial, :add_picture
-      get :search_criteria, :likes, :pics_edit, :set_default_pic
+      get :search_criteria, :likes, :pics_edit, :set_default_pic, :set_visible_pic
       post :update_status, :update_about_me
     end
   end
