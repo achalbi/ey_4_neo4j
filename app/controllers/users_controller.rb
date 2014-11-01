@@ -109,6 +109,7 @@ autocomplete :location, :address, :full => true
     @uniq_badges.each do |badge|
       @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
     end
+    binding.pry
     @pictures = @user.pictures
     @testimonials = @user.testimonials
     respond_to do |format|
