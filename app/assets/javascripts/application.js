@@ -29,6 +29,7 @@
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/lib/typeahead
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/typeaheadjs
 //= require ../plugins/magnific/js/jquery.magnific-popup.min
+//= require ../plugins/owl/js/owl.carousel.min
 //= require_tree ../plugins/jvectormap/.
 //= require_tree ../plugins/gmaps/.
 //= require_tree ./maps/.

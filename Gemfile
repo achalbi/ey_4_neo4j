@@ -40,7 +40,7 @@ gem 'rails4-autocomplete'
 
 gem "font-awesome-rails"
 gem 'koala'
-gem 'newrelic_rpm'
+#gem 'newrelic_rpm'
 
 #gem 'faker', '1.0.1'
 gem 'jquery-turbolinks'
@@ -71,9 +71,9 @@ platforms :jruby do
   gem 'neo4j-community', '~> 2.0.0'
 end
 
-gem 'sidekiq'
-gem 'sinatra', require: false
-gem 'slim'
+#gem 'sidekiq'
+#gem 'sinatra', require: false
+#gem 'slim'
 
 
 group :doc do

@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+#require 'sidekiq/web'
 
 Ey::Application.routes.draw do
   
@@ -23,7 +23,7 @@ Ey::Application.routes.draw do
     end
   end
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  #mount Sidekiq::Web, at: '/sidekiq'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
