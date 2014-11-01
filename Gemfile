@@ -47,7 +47,7 @@ gem 'jquery-turbolinks'
 #gem 'purecss'
 
 group :production do
-	  gem 'puma'
+#	  gem 'puma'
 #   gem 'unicorn'
   	gem 'rails_12factor'
 end
