@@ -659,7 +659,10 @@ html body {
     height: 60px;
     padding: 0px;
   }
-  #header.navbar .navbar-header > .navbar-brand > .logo-text,
+  #header.navbar .navbar-header > .navbar-brand > .logo-text {
+     display: inline-block;
+    margin-top: 9px;
+  }
   #header.navbar .navbar-header > .navbar-brand > .logo-figure {
     display: inline-block;
     margin-top: 5px;
@@ -1828,10 +1831,10 @@ section.section .section-header {
     background-color: transparent;
   }
   .frontend #header.navbar .navbar-header > .navbar-brand > .logo-figure {
-    background-image: url("/logo/logo-figure-inverse.png");
+    background-image: url("/assets/logo/logo-figure-inverse-1.png");
   }
   .frontend #header.navbar .navbar-header > .navbar-brand > .logo-text {
-    background-image: url("/logo/logo-text-inverse.png");
+    background-image: url("/assets/logo/logo-text-inverse-1.png");
   }
   .frontend #header.navbar .navbar-toolbar .navbar-collapse > .navbar-nav > .dropdown > .dropdown-menu {
     margin-top: 1px;

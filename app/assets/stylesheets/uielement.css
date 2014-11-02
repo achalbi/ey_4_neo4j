@@ -58,32 +58,32 @@
   display: inline-block;
   vertical-align: top;
   text-decoration: none;
-  height: 50px;
+  height: 40px;
 }
 .logo-text {
-  width: 110px;
-  background-image: url("/assets/logo/logo-text.png");
+  width: 140px;
+  background-image: url("/assets/logo/logo-text-1.png");
   background-repeat: no-repeat;
-  background-size: 110px 50px;
+  background-size: 140px 40px;
 }
 .logo-text + .logo-figure {
   margin-left: -13px;
 }
 .logo-text.inverse {
-  background-image: url("/assets/logo/logo-text-inverse.png");
+  background-image: url("/assets/logo/logo-text-inverse-1.png");
 }
 .logo-figure {
-  width: 32px;
-  background-image: url("/assets/logo/logo-figure.png");
+  width: 42px;
+  background-image: url("/assets/logo/logo-figure-1.png");
   background-repeat: no-repeat;
   background-position: 0px 8px;
-  background-size: 32px 32px;
+  background-size: 42px 32px;
 }
 .logo-figure + .logo-text {
   margin-left: -13px;
 }
 .logo-figure.inverse {
-  background-image: url("/assets/logo/logo-figure-inverse.png");
+  background-image: url("/assets/logo/logo-figure-inverse-1.png");
 }
 /* ----------------------------
  *
@@ -4071,7 +4071,7 @@ hr {
   background: url("/assets/stellar/background6.jpg") no-repeat center top fixed;
 }
 .jumbotron.jumbotron-bg7 {
-  background: url("/assets/stellar/background7.jpg") no-repeat center top fixed;
+  background: url("/assets/stellar/soft_love.jpg") no-repeat center top fixed;
 }
 .jumbotron h1,
 .jumbotron .h1 {

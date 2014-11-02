@@ -5,6 +5,7 @@
 <% provide(:title, 'Home') %>
 
 
+<div class="frontend">
 <!-- START Template Header -->
         <header id="header" class="navbar navbar-fixed-top">
             <div class="container">
@@ -29,9 +30,9 @@
                 <!-- pattern + overlay -->
                 <div class="overlay pattern pattern2"></div>
                 <!--/ pattern + overlay -->
-                <div class="container" style="padding-top:8%;">
+                <div class="container" style="padding-top:14%;">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-6 ml15">
                             <h1 class="thin text-white font-alt mt0 mb5">Open up yourself </h1>
                             <p class="text-white fsize14">
                                 Meet new people around you, get to know them better.<br>
@@ -39,7 +40,7 @@
                             </p>
                             <h4 class="mt0 dis-none"><a href="javascript:void(0);">Learn More...</a></h4>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 ml15">
                             <form role="form">
                                 <div class="dis-none mt15">
                                     <div class="form-group">
@@ -54,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="mt15 mb15"></div>
-                                <button type="button" class="btn btn-primary btn-block btn-lg mt15" id="fb_login" ><i class="ico-facebook22"></i> &nbsp;&nbsp;&nbsp; Sign in with facebook</button>
+                                <button type="button" class="btn btn-facebook btn-block btn-lg mt15 ml15" id="fb_login" ><i class="ico-facebook22 mr15"></i> Login with facebook </button>
                             </form>
                         </div>
                     </div>
@@ -216,5 +217,15 @@
             </div>
             <!--/ bottom footer -->
         </footer>
+</div>
+        <script type="text/javascript">
+            // Carousel
+            // ================================
+            $("#customer-reviews").owlCarousel({
+                singleItem: true,
+                autoPlay: true,
+                autoHeight : true
+            });
+        </script>
 
 <% end %>

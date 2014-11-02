@@ -26,7 +26,7 @@ $(function () {
             layersContainer: 1280,
             skin: "fullwidth",
             hoverPrevNext: false,
-            skinsPath: "../plugins/layerslider/skins/"
+            skinsPath: "/assets/plugins/layerslider/skins/"
         });
     }
 });
