@@ -1,5 +1,8 @@
       <div class="paginate_do">
               <% @friends.each do |friend| %> 
+              <% if friend.uuid == current_user.uuid %>
+                <% next %>
+              <% end %>
                <div class="col-xs-12 col-md-6 col-lg-4">
                 <!-- START Widget Panel -->
                         <div class="widget panel">
@@ -49,7 +52,7 @@
                                     <li>
                                         <div class="section">
                                             <h4 class="nm">
-                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                              <img src="/assets/icons/like-red-lite.png" alt="" class="img-responsive center_block">
                                             </h4>
                                             <h4 class="nm mt5"><%= friend.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>

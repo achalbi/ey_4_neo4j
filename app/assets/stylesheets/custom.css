@@ -24,17 +24,21 @@
 
 *.icon-white {color: white}
 *.icon-silver {color: silver}
+*.icon-grey {color: grey}
 *.icon-red {color: #dd172f}
+*.icon-red-lite {color: #ec465a}
 *.icon-blue {color: #0088AC}
 *.icon-green {color: #4BA84B} 
 *.icon-black {color: black} 
 
+*.icon-bg-yellow {background-color: #f0ad4e} 
 
 *.icon-font-22 {font-size: 22px;}
 
 *.icon-font-55 {font-size: 55px;}
 
 *.font-15 {font-size: 15px !important;}
+*.font-18 {font-size: 18px !important;}
 
 .panel > .panel-ribbon-60 {
   width: 60px !important;

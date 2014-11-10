@@ -38,7 +38,7 @@
                                     <li>
                                         <div class="section">
                                             <h4 class="nm">
-                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                              <img src="/assets/icons/like-red-lite.png" alt="" class="img-responsive center_block">
                                             </h4>
                                             <h4 class="nm mt5"><%= current_user.rels(dir: :incoming, type: "likes").count %></h4>
                                         </div>
@@ -60,10 +60,28 @@
                                     </li>
                                 </ul>
                                 <!--/ Nav section -->
+                                  <div class="panel panel-minimal nm">
+          
+                                      <!-- START Bio -->
+                                      <div class="panel-toolbar-wrapper hidden-md hidden-lg">
+                                          <div class="panel-toolbar">
+                                              <h5 class="semibold nm text-info"><i class="ico-info2 mr5"></i>About me</h5>
+                                          </div>
+                                      </div>
+                                      <div class="panel-body pt0  hidden-md hidden-lg">
+                                          <p class="semibold mb5 icon-black">
+                                            <a href="#" id="xe_about_me" data-type="textarea" data-pk="1" class="icon-black"><%= current_user.about_me %></a>
+                                          </p>
+                                          
+                                      </div>
+                                      <!--/ END Bio -->
+                                  </div>
                             </div>
                             <!--/ panel body -->
                         </div>
                         <!--/ END Widget Panel -->
+                        
+                        
 
                               <div class="panel panel-teal overflow-hidden">
                                                                   <!-- panel heading/header -->
@@ -168,7 +186,7 @@
                                   <!-- panel body with collapse capable -->
                                   <div class="panel-collapse pull out">
                                       <div class="panel-body">
-                                          <%= render partial: "users/my_badges", :locals => {:user => current_user} %>
+                                          <%= render partial: "users/badges", :locals => {:user => current_user} %>
                                       </div>
                                   </div>
                                   <!--/ panel body with collapse capabale -->
@@ -199,7 +217,7 @@
                             </div>
                             <!--/ END Bio -->
 
-                            <hr><!--horizontal line -->
+                            <hr class="hidden-sm hidden-xs"><!--horizontal line -->
 
                             <!-- START Friend lists -->
                             <div class="panel-toolbar-wrapper">
@@ -486,4 +504,4 @@ $.fn.editable.defaults.mode = 'inline';
        });
 
 
-</script>            
+</script>

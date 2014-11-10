@@ -8,6 +8,7 @@ autocomplete :location, :address, :full => true
 
     if  @user.nil?
       @user = User.create_with_omniauth(oauth)
+   #   @user = User.find_by(email: oauth['extra']['raw_info']['email'])
     end
     unless  @user.username.present? 
       @user = update_with_omniauth(@user, oauth)
@@ -102,16 +103,29 @@ autocomplete :location, :address, :full => true
       end
         current_user.save!
     end
-    @b = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
-    @badges = @b.map {|b| b.badgeType}.uniq
-    @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
+    #@b = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
+    #@badges = @b.map {|b| b.badgeType}.uniq
+    @uniq_badges =  @user.rels(dir: :incoming, type: :badges).each.map {|r| r.badgeType}.uniq
     @all_badges = {}
     @uniq_badges.each do |badge|
-      @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
+      @all_badges[badge] = @user.rels(dir: :incoming, type: :badges).each.select{|r| r.badgeType == badge }.count
     end
-    binding.pry
+    @my_badges = []
+    @badges_count = @user.rels(dir: :incoming, type: "badges").count
+    if current_user.uuid != @user.uuid
+        current_user.rels(dir: :outgoing, type: :badges, between: @user).each do |r|
+        #current_user.badges(:u, :r).where( uuid: @user.uuid ).each_with_rel do |u, r| 
+        @my_badges << r[:badgeType]
+      end
+    end
     @pictures = @user.pictures
     @testimonials = @user.testimonials
+
+    unless @user.uuid == current_user.uuid
+      @like = current_user.rels(dir: :outgoing, type: :likes, between: @user).blank? ? true : false
+    end
+    @likes_count = @user.rels(dir: :incoming, type: "likes").count
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -241,7 +255,8 @@ autocomplete :location, :address, :full => true
       current_user.likes << @user
       current_user.save!
     end
-    head :ok#, :content_type => 'text/html'
+    @likes_count = @user.rels(dir: :incoming, type: "likes").count
+    #, :content_type => 'text/html'
   end
 
   def like_list
@@ -257,21 +272,31 @@ autocomplete :location, :address, :full => true
   def badges
       badges = params[:badges]
         @user = User.find(params[:user_id])
-        @rel = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
-        @badges = @rel.map {|b| b.badgeType}.uniq
+      #  @rel = current_user.badges(:u, :r).where( uuid: @user.uuid ).pluck(:r)
+      #  @badges = @rel.map {|b| b.badgeType}.uniq
 
+    @my_badges = []
+    if current_user.uuid != @user.uuid
+        current_user.rels(dir: :outgoing, type: :badges, between: @user).each do |r|
+        #current_user.badges(:u, :r).where( uuid: @user.uuid ).each_with_rel do |u, r| 
+        @my_badges << r[:badgeType]
+      end
 
-    create_destroy_badges(@badges, 'hot', params[:hot], @user)
-    create_destroy_badges(@badges, 'smart', params[:smart], @user)
-    create_destroy_badges(@badges, 'macho', params[:macho], @user)
-    create_destroy_badges(@badges, 'moody', params[:moody], @user)
-    create_destroy_badges(@badges, 'kind', params[:kind], @user)
-    create_destroy_badges(@badges, 'stingy', params[:stingy], @user)
+    create_destroy_badges(@my_badges, 'hot', params[:hot], @user)
+    create_destroy_badges(@my_badges, 'smart', params[:smart], @user)
+    create_destroy_badges(@my_badges, 'macho', params[:macho], @user)
+    create_destroy_badges(@my_badges, 'moody', params[:moody], @user)
+    create_destroy_badges(@my_badges, 'kind', params[:kind], @user)
+    create_destroy_badges(@my_badges, 'stingy', params[:stingy], @user)
 
-    @uniq_badges =  @user.badges.each_rel.map {|r| r.badgeType}.uniq
+    @badges_count = @user.rels(dir: :incoming, type: "badges").count
+
+    @uniq_badges = @user.rels(dir: :incoming, type: :badges).each.map {|r| r.badgeType}.uniq
     @all_badges = {}
     @uniq_badges.each do |badge|
-      @all_badges[badge] = @user.badges.each_rel.select{|r| r.badgeType == badge }.count
+      @all_badges[badge] = @user.rels(dir: :incoming, type: :badges).each.select{|r| r.badgeType == badge }.count
+    end
+
     end
 
   end

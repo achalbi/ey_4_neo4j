@@ -25,7 +25,7 @@ module UsersHelper
     def create_destroy_badges(oBadges, badgeType, paramBadge, user)
             if oBadges.include?(badgeType)
                 if paramBadge.nil?
-                  rel = current_user.badges(:u, :r).where( uuid: user.uuid ).each_rel.select{|r| r.badgeType == badgeType}
+                  rel = current_user.rels(dir: :outgoing, type: :badges, between: @user).each.select{|r| r.badgeType == badgeType}
                   rel.map {|r| r.destroy}
                 end
             else
@@ -35,6 +35,7 @@ module UsersHelper
                     rel.from_node = current_user
                     rel.to_node = user
                     rel.save
+                    oBadges << badgeType
                 end
             end
     end

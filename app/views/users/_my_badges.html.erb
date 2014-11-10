@@ -1,10 +1,13 @@
  <% unless @uniq_badges.blank? %>
-  <h4><b>All Badges</b></h4>
- <div class="list-group">
+ <div class="">
+ 	<ul class="list-group mb0">
  	<% @all_badges.each do |k, v| %>
-	   <%= "#{k} - #{v}"  %><br> 
+       	<li class="list-group-item">
+ 		<img src='<%= cloudinary_url( 'crushlike_uvxp3c', :width => 25, :height => 25, :crop => :fit) %>'>
+	   <%= "#{k}"  %>
+	   <span class="badge"><%= "#{v}"  %></span></li>
 	 <% end %>
-
+	</ul>
  </div>
  <% else %>
  	No badges

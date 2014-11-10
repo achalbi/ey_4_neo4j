@@ -7,6 +7,17 @@
                            
                               <!-- START Widget Panel -->
                          <div class="widget panel">
+
+                           <!-- panel ribbon -->
+
+                            <% if @like %>
+                              <a href='/users/<%= @user.uuid %>/likes' class='like panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
+                            <% else %>
+                              <a href='/users/<%= @user.uuid %>/likes' class='like panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
+                            <% end %>
+                                                         
+                          <!--/ panel ribbon -->
+
                             <!-- Thumbnail -->
                             <div class="thumbnail">
                                 <!-- media -->
@@ -43,9 +54,9 @@
                                     <li>
                                         <div class="section">
                                             <h4 class="nm">
-                                              <img src="/assets/icons/thumbup4x64.png" alt="" class="img-responsive center_block">
+                                              <img src="/assets/icons/like-red-lite.png" alt="" class="img-responsive center_block">
                                             </h4>
-                                            <h4 class="nm mt5"><%= @user.rels(dir: :incoming, type: "likes").count %></h4>
+                                            <h4 class="nm mt5 likes_count"><%= @likes_count %></h4>
                                         </div>
                                     </li>
                                     <li>
@@ -53,7 +64,7 @@
                                             <h4 class="nm">
                                               <img src="/assets/icons/pagequality1x64.png" alt="" class="img-responsive center_block">
                                             </h4>
-                                            <h4 class="nm mt5"><%= @user.rels(dir: :incoming, type: "badges").count %></h4>
+                                            <h4 class="nm mt5 badges_count"><%= @badges_count %></h4>
                                         </div>
                                     </li>
                                     <li>
@@ -65,6 +76,22 @@
                                     </li>
                                 </ul>
                                 <!--/ Nav section -->
+                                <div class="panel panel-minimal nm">
+          
+                                      <!-- START Bio -->
+                                      <div class="panel-toolbar-wrapper hidden-md hidden-lg">
+                                          <div class="panel-toolbar">
+                                              <h5 class="semibold nm text-info"><i class="ico-info2 mr5"></i>About me</h5>
+                                          </div>
+                                      </div>
+                                      <div class="panel-body pt0  hidden-md hidden-lg">
+                                          <p class="semibold mb5 icon-black">
+                                            <a href="#"  class="icon-black"><%= current_user.about_me %></a>
+                                          </p>
+                                          
+                                      </div>
+                                      <!--/ END Bio -->
+                                  </div>
                             </div>
                             <!--/ panel body -->
                         </div>
@@ -163,14 +190,27 @@
                                   <!-- panel heading/header -->
                                   <div class="panel-heading">
                                       <h3 class="panel-title">Badges</h3>
-                                      
+                                      <!-- panel toolbar -->
+                                      <div class="panel-toolbar text-right">
+                                          <!-- option -->
+                                              
+                                          <div class="option">
+                                              <button class="btn demo a-color-inherit" >
+                                                <a  href="#badges_modal" role="button" data-toggle="modal"class="">
+                                                  <i class="ico-plus-circle"></i>
+                                                </a>              
+                                              </button>              
+                                          </div>
+                                          <!--/ option -->
+                                      </div>
+                                      <!--/ panel toolbar -->
                                   </div>
                                   <!--/ panel heading/header -->
                                   
                                   <!-- panel body with collapse capable -->
                                   <div class="panel-collapse pull out">
-                                      <div class="panel-body">
-                                          <%= render partial: "users/my_badges", :locals => {:user => @user} %>
+                                      <div class="panel-body" id="badges_block">
+                                          <%= render partial: "users/badges", :locals => {:user => @user} %>
                                       </div>
                                   </div>
                                   <!--/ panel body with collapse capabale -->
@@ -188,7 +228,7 @@
                         <div class="panel panel-minimal nm">
                           <% unless @user.about_me.blank? %>
                             <!-- START Bio -->
-                            <div class="panel-toolbar-wrapper hidden-sm hidden-xs">
+                            <div class="panel-toolbar-wrapper hidden-sm hidden-xs ">
                                 <div class="panel-toolbar">
                                     <h5 class="semibold nm text-info"><i class="ico-info2 mr5"></i>About me</h5>
                                 </div>
@@ -200,7 +240,7 @@
                             </div>
                             <!--/ END Bio -->
 
-                            <hr><!--horizontal line -->
+                            <hr class="hidden-sm hidden-xs"><!--horizontal line -->
 
                             <% end %> 
                             <!-- START Friend lists -->
@@ -246,18 +286,18 @@
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      Add places to find people around it
+      Give badges
       </div>
       <div class="modal-body">
           <!-- <form class="form center-block"> -->
           <%= hidden_field_tag "user_id", "#{@user.uuid}"  %>
           <div class="form-group">
-            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'hot', true , @badges.include?('hot')  %> Hot</h5>
-              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'smart', true , @badges.include?('smart') %> Smart</h5>
-              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'macho', true , @badges.include?('macho') %> Macho</h5>
-              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'moody', true , @badges.include?('moody') %> Moody</h5>
-              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'kind', true , @badges.include?('kind') %> Kind</h5>
-              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'stingy', true , @badges.include?('stingy') %> Stingy</h5>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'hot', true , @my_badges.include?('hot')  %> Hot</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'smart', true , @my_badges.include?('smart') %> Smart</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'macho', true , @my_badges.include?('macho') %> Macho</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'moody', true , @my_badges.include?('moody') %> Moody</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'kind', true , @my_badges.include?('kind') %> Kind</h5>
+              <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= check_box_tag 'stingy', true , @my_badges.include?('stingy') %> Stingy</h5>
 
             </div>
           <!-- </form> -->
@@ -308,4 +348,15 @@
                         $(this).addClass("unveiled");
                     });
                 });
+
+        $(".like").click(function(){
+          if ($(this).children("i").hasClass( "icon-red" )) {
+            $(this).children("i").removeClass("icon-red");
+            $(this).children("i").addClass("icon-white");
+          } else{
+            $(this).children("i").addClass("icon-red");
+            $(this).children("i").removeClass("icon-white");
+          };
+        });
+
 </script>

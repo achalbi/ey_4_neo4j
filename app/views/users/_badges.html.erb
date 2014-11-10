@@ -1,22 +1,20 @@
- <% if current_user.badges(:u, :r).where( uuid: @user.uuid ).exists? %>
- <h4><b>Badges given by me</b></h4>
- <div class="list-group">
- 	<% current_user.badges(:u, :r).where( uuid: @user.uuid ).each_with_rel do |u, r| %>
-	   <%= r[:badgeType] %><br> 
-	 <% end %>
-
- </div>
- <% else %>
- 	No badges given by you
- <% end %>
-
  <% unless @uniq_badges.blank? %>
-  <h4><b>All Badges</b></h4>
- <div class="list-group">
+ <div class="">
+ 	<ul class="list-group mb0">
  	<% @all_badges.each do |k, v| %>
-	   <%= "#{k} - #{v}"  %><br> 
-	 <% end %>
+       	<li class="list-group-item">
+ 		<img src='<%= cloudinary_url( 'crushlike_uvxp3c', :width => 25, :height => 25, :crop => :fit) %>'>
+		   <%= "#{k}"  %>
 
+		   <span class="badge icon-bg-yellow">
+				<%= "#{v}"  %>
+		   </span>
+		   	<% if !@my_badges.blank? && @my_badges.include?("#{k}")  %>
+		   		<i class="ico-heart icon-red-lite mr10 pull-right font-18"></i>
+		   	<% end %>
+		</li>
+	 <% end %>
+	</ul>
  </div>
  <% else %>
  	No badges
