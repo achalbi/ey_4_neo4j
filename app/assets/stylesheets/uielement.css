@@ -91,7 +91,7 @@
  *
  * --------------------------- */
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
-  .logo-text {
+/*  .logo-text {
     background-image: url("/assets/logo/logo-text@2x.png");
     background-size: 110px 50px;
   }
@@ -104,6 +104,21 @@
   }
   .logo-figure.inverse {
     background-image: url("/assets/logo/logo-figure-inverse@2x.png");
+  }*/
+  .logo-text {
+    background-image: url("/assets/logo/logo-text-1.png");
+    margin-top: 6px;
+    background-size: 130px 35px;
+  }
+  .logo-text.inverse {
+    background-image: url("/assets/logo/logo-text-inverse-1.png");
+  }
+  .logo-figure {
+    background-image: url("/assets/logo/logo-figure-1.png");
+    background-size: 40px 35px;
+  }
+  .logo-figure.inverse {
+    background-image: url("/assets/logo/logo-figure-inverse-1.png");
   }
 }
 /* ----------------------------

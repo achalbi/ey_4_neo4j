@@ -7,8 +7,8 @@ autocomplete :location, :address, :full => true
     #session['fb_auth'] = oauth
 
     if  @user.nil?
-      @user = User.create_with_omniauth(oauth)
-   #   @user = User.find_by(email: oauth['extra']['raw_info']['email'])
+   #   @user = User.create_with_omniauth(oauth)
+      @user = User.find_by(email: oauth['extra']['raw_info']['email'])
     end
     unless  @user.username.present? 
       @user = update_with_omniauth(@user, oauth)

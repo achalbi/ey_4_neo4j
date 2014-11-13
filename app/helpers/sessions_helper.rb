@@ -11,6 +11,7 @@ module SessionsHelper
   end
 
   def current_user
+    return nil if cookies[:remember_token].nil?
     @current_user ||= User.find_by remember_token: cookies[:remember_token]
   end
 
