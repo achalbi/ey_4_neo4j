@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/itsNikolay/magnific-popup-rails.git
+  revision: 03502062efff48c133fc348b611738ba85a5b5ba
+  specs:
+    magnific-popup-rails (0.9.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -273,6 +279,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   koala
+  magnific-popup-rails!
   meta_request
   neo4j
   neo4j-community (~> 2.0.0)

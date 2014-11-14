@@ -278,6 +278,13 @@
                        </div>
                   <!--/row-->
 
+<div class="dis-none-imp">
+  <% unless @pictures.nil? %>
+      <% @pictures.each do |pic| %>
+        <a href="<%= cloudinary_url(pic, :crop => :fill) %>" class="btn btn-default profile_pics" title="view picture">1</a>
+      <% end %>
+  <% end %>
+</div>
 
 <!-- badges modal-->
 <%= form_for([:badges, current_user] , remote: true)  do %>
@@ -358,5 +365,12 @@
             $(this).children("i").removeClass("icon-white");
           };
         });
+
+          $(".profile_pics").magnificPopup({
+              type: "image",
+              gallery: {
+                  enabled: true
+              }
+          });
 
 </script>

@@ -47,6 +47,7 @@ gem 'jquery-turbolinks'
 #gem 'purecss'
 
 gem 'puma'
+gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails'
 
 group :production do
 #   gem 'unicorn'

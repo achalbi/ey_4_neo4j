@@ -7,15 +7,15 @@
                 <!-- START Widget Panel -->
                         <div class="widget panel">
                           <!-- panel ribbon -->
-                            <a href="javascript:void(0);" class="panel-ribbon panel-ribbon-primary"><i class="ico-info"></i></a>
+                            <a href="/users/<%= friend.uuid %>/" class="panel-ribbon panel-ribbon-primary"><i class="ico-info"></i></a>
                           <!--/ panel ribbon -->
                           <!-- panel ribbon -->
                             <% @like = current_user.rels(dir: :outgoing, type: :likes, between: friend).blank? ? true : false %>
 
                             <% if @like %>
-                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
+                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right like' data-remote='true'><i class='ico-heart icon-white icon-font-22'></i></a>
                             <% else %>
-                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
+                              <a href='/users/<%= friend.uuid %>/likes' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right like' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
                             <% end %>
                                                          
                           <!--/ panel ribbon -->
@@ -24,9 +24,21 @@
                             <div class="thumbnail">
                                 <!-- media -->
                                 <div class="media">
-                                    <a href="/users/<%= friend.uuid %>/">
-                                    <img src="<%= facebook.get_picture(friend.uid,:type => "square", height: 400 , width: 400) %>" height="100%">
-                                  </a>
+                                    <div  class="gallery">
+                                      <a href="<%= cloudinary_url(friend.default_pic, :crop => :fill) %>">
+                                        <img src='<%= cloudinary_url(friend.default_pic, :width => 340, :height => 400, :crop => :fill, :gravity => :face) %>' height="100%">
+                                      </a>
+                                            <% i = 0 %>
+                                            <% friend.visible_pictures.each do |pic| %>
+                                              <% if i == 0 %>
+                                                <% i = i+1 %>
+                                                <% next %>
+                                              <% end %>
+                                                <a href="<%= cloudinary_url(pic, :crop => :fill) %>" class="dis-none-imp">
+                                                  <img src='<%= cloudinary_url(pic, :width => 30, :height => 40, :crop => :fill, :gravity => :face) %>' height="100%">
+                                                </a>
+                                            <% end %>
+                                  </div>
                                 </div>
                                 <!--/ media -->
                             </div>
@@ -80,11 +92,46 @@
                         <!--/ END Widget Panel -->
           <!--/row-->
                   </div>
+
+
+                  <script type="text/javascript">
+     
+
+                    $('.gallery').each(function() { // the containers for all your galleries
+                        $(this).magnificPopup({
+                          delegate: 'a', // the selector for gallery item
+                            type: 'image',
+                              mainClass: 'mfp-with-zoom', // this class is for CSS animation below
+
+                              zoom: {
+                                enabled: true, // By default it's false, so don't forget to enable it
+
+                                duration: 300, // duration of the effect, in milliseconds
+                                easing: 'ease-in-out', // CSS transition easing function 
+
+                                // The "opener" function should return the element from which popup will be zoomed in
+                                // and to which popup will be scaled down
+                                // By defailt it looks for an image tag:
+                                opener: function(openerElement) {
+                                  // openerElement is the element on which popup was initialized, in this case its <a> tag
+                                  // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+                                  return openerElement.is('img') ? openerElement : openerElement.find('img');
+                                }
+                              },
+                            gallery: {
+                              enabled:true
+                            }
+                        });
+                    }); 
+                  $(function(){
+                  });
+                  </script>
+
                 <% end %>      
       </div>
 
       <script type="text/javascript">
-        $(".panel-ribbon").click(function(){
+        $(".like").click(function(){
           if ($(this).children("i").hasClass( "icon-red" )) {
             $(this).children("i").removeClass("icon-red");
             $(this).children("i").addClass("icon-white");

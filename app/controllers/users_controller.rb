@@ -6,36 +6,42 @@ autocomplete :location, :address, :full => true
     @user = User.find_by(uid: oauth['uid'])
     #session['fb_auth'] = oauth
 
+    
     if  @user.nil?
    #   @user = User.create_with_omniauth(oauth)
       @user = User.find_by(email: oauth['extra']['raw_info']['email'])
     end
+    
     unless  @user.username.present? 
       @user = update_with_omniauth(@user, oauth)
     end
+    
     @user.fb_access_token = oauth['credentials']['token']
     session['fb_access_token'] = oauth['credentials']['token']
     session['fb_error'] = nil
     @user.save!
     sign_in @user
     
+    
     @graph = Koala::Facebook::API.new(@user.fb_access_token)
     @user.pictures =  []
     @user.visible_pictures = []
+    
     if @user.default_pic.nil?
       @user.default_pic =  Cloudinary::Uploader.upload(@graph.get_picture(@user.uid,:type => "square", height: 400 , width: 400))["public_id"]
       default_pic = @user.default_pic
       @user.pictures << default_pic
       @user.visible_pictures << default_pic
     end
+    
     @user.save!
     @pics = @user.pictures
     @v_pics = @user.visible_pictures
 
+    
        @user.pictures = nil
        @user.visible_pictures = nil
        @user.save!
-
     unless profile_pics.empty?
       profile_pics.each do |pic_id|
         picture =  Cloudinary::Uploader.upload(@graph.get_object(pic_id)["source"])["public_id"]

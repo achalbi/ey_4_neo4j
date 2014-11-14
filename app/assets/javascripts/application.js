@@ -18,6 +18,7 @@
 //= require jquery-ui
 //= require rails-timeago
 //= require autocomplete-rails
+//= require magnific-popup
 //= require turbolinks
 //= require ./jquery-migrate.min
 //= require browser_timezone_rails/set_time_zone
@@ -28,11 +29,11 @@
 //= require ../plugins/xeditable/js/bootstrap-editable.min
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/lib/typeahead
 //= require ../plugins/xeditable/inputs-ext/typeaheadjs/typeaheadjs
-//= require ../plugins/magnific/js/jquery.magnific-popup.min
 //= require ../plugins/owl/js/owl.carousel.min
 //= require_tree ../plugins/jvectormap/.
 //= require_tree ../plugins/gmaps/.
 //= require_tree ./maps/.
 //= require_tree .
 
+// ../plugins/magnific/js/jquery.magnific-popup.min
 // purecss-dropdown
