@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
   	@user = current_user
   	unless @user.nil?
   		@pictures = @user.pictures.nil? ? []: @user.pictures
+  		@testimonials = @user.testimonials
   	    @uniq_badges =  @user.rels(dir: :incoming, type: :badges).each.map {|r| r.badgeType}.uniq
 	    @all_badges = {}
 	    @uniq_badges.each do |badge|

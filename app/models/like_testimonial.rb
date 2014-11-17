@@ -3,6 +3,6 @@ class Like_testimonial
 
   from_class User
   to_class   Testimonial
-  type 'like_testimonials'
+  type 'likes_testimonial'
 
 end

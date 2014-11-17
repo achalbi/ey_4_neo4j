@@ -18,8 +18,38 @@
 	 			</span>
 	 		</p>
 	 	</li>
+	 		 <% if @user.uuid == current_user.uuid %>
+	 	<li class="text-right width-30">
+	 		 		
+                            <% unless testimonial.liked %>
+                              <a href='/users/<%= @user.uuid %>/likes_testimonial?t_id=<%= testimonial.uuid %>' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right like_testimonial' data-remote='true'><i class='ico-heart icon-silver icon-font-22'></i></a>
+                            <% else %>
+                              <a href='/users/<%= @user.uuid %>/likes_testimonial?t_id=<%= testimonial.uuid %>' class='panel-ribbon-60 panel-ribbon panel-ribbon-teal pull-right like_testimonial' data-remote='true'><i class='ico-heart icon-red icon-font-22'></i></a>
+                            <% end %>
+	 	</li>
+             <% end %>
+	 		 <% if @user.uuid == current_user.uuid || current_user.uuid == testimonial.write_testimonials[0].uuid %>
+				 	<li class="text-right width-20 valign-top">
+				 			<a href='/users/<%= @user.uuid %>/delete_testimonial?t_id=<%= testimonial.uuid %>' data-remote='true'>
+					 			<i class="ico-remove icon-silver"></i>
+				 			</a>
+				 	</li>
+             <% end %>
+
 	 </ul>
  <% end %>
  <% else %>
  No testimonials
  <% end %>
+      <script type="text/javascript">
+        $(".like_testimonial").click(function(){
+          if ($(this).children("i").hasClass( "icon-red" )) {
+            $(this).children("i").removeClass("icon-red");
+            $(this).children("i").addClass("icon-silver");
+          } else{
+            $(this).children("i").addClass("icon-red");
+            $(this).children("i").removeClass("icon-silver");
+          };
+        });
+
+      </script>

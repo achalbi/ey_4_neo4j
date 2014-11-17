@@ -41,7 +41,7 @@ class User
   has_many :out, :likes, model_class: User,  rel_class: Like
   has_many :both, :badges, model_class: User,  rel_class: Badge
   has_many :out, :write_testimonials, model_class: Testimonial,  rel_class: Write_testimonial
-  has_many :out, :like_testimonials, model_class: Testimonial,  rel_class: Like_testimonial
+  has_many :out, :likes_testimonial, model_class: Testimonial,  rel_class: Like_testimonial
   has_many :in, :testimonials, model_class: Testimonial,  rel_class: My_testimonial
   has_many :out, :profile_pics,  model_class: Picture,  rel_class: Profile
   #has_one :out, :default_pics,  model_class: Picture,  rel_class: Profile

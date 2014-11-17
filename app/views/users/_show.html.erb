@@ -70,7 +70,7 @@
                                       </div>
                                       <div class="panel-body pt0  hidden-md hidden-lg">
                                           <p class="semibold mb5 icon-black">
-                                            <a href="#" id="xe_about_me" data-type="textarea" data-pk="1" class="icon-black"><%= current_user.about_me %></a>
+                                            <a href="#" class="xe_about_me icon-black" data-type="textarea" data-pk="1" ><%= current_user.about_me %></a>
                                           </p>
                                           
                                       </div>
@@ -125,7 +125,7 @@
                                   
                                   <!-- panel body with collapse capable -->
                                   <div class="panel-collapse pull out">
-                                      <div class="panel-body">
+                                      <div class="panel-body" id="testimonials_block">
                                                  <%= render partial: "users/testimonials", :locals => {:user => current_user} %> 
                                                  
                                       </div>
@@ -211,7 +211,7 @@
                             </div>
                             <div class="panel-body pt0 pl0 pr0 hidden-sm hidden-xs">
                                 <p class="semibold mb5 icon-black">
-                                  <a href="#" id="xe_about_me" data-type="textarea" data-pk="1" class="icon-black"><%= current_user.about_me %></a>
+                                  <a href="#" data-type="textarea" data-pk="1" class="icon-black xe_about_me"><%= current_user.about_me %></a>
                                 </p>
                                 
                             </div>
@@ -469,7 +469,7 @@ $.fn.editable.defaults.mode = 'inline';
            }
        });
 
-     $("#xe_about_me").editable({
+     $(".xe_about_me").editable({
         title: "Enter status",
            rows: 5,
            url: '/users/<%= current_user.uuid %>/update_about_me', 

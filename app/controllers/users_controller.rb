@@ -8,8 +8,8 @@ autocomplete :location, :address, :full => true
 
     
     if  @user.nil?
-   #   @user = User.create_with_omniauth(oauth)
-      @user = User.find_by(email: oauth['extra']['raw_info']['email'])
+      @user = User.create_with_omniauth(oauth)
+    #  @user = User.find_by(email: oauth['extra']['raw_info']['email'])
     end
     
     unless  @user.username.present? 
@@ -127,6 +127,19 @@ autocomplete :location, :address, :full => true
     @pictures = @user.pictures
     @testimonials = @user.testimonials
 
+    unless @user == current_user
+      t = []
+      @testimonials.each do |testimonial|
+        if testimonial.liked
+         t << testimonial
+         next
+        end
+        if testimonial.write_testimonials[0] == current_user
+         t << testimonial
+        end
+      end
+      @testimonials = t
+    end
     unless @user.uuid == current_user.uuid
       @like = current_user.rels(dir: :outgoing, type: :likes, between: @user).blank? ? true : false
     end
@@ -340,6 +353,20 @@ autocomplete :location, :address, :full => true
       rel2.save!
 
       @testimonials = @user.testimonials
+
+      unless @user == current_user
+        t = []
+        @testimonials.each do |testimonial|
+          if testimonial.liked
+           t << testimonial
+           next
+          end
+          if testimonial.write_testimonials[0] == current_user
+           t << testimonial
+          end
+        end
+        @testimonials = t
+      end
   end
 
   def add_picture
@@ -388,6 +415,51 @@ autocomplete :location, :address, :full => true
     @user.save!
 
     head :ok
+  end
+
+  def likes_testimonial
+    @user = User.find(params[:id])
+    @testimonial = Testimonial.find(params[:t_id])
+    unless  current_user.rels(type: :likes_testimonial, between: @testimonial).blank?
+      rel = current_user.rels(type: :likes_testimonial, between: @testimonial)
+      rel[0].destroy
+      current_user.save!
+      @testimonial.liked = false
+      @testimonial.save!
+    else
+      @testimonial.liked = true
+      @testimonial.save!
+      current_user.likes_testimonial << @testimonial
+      current_user.save!
+    end
+    @testimonials = @user.testimonials
+    
+  end
+
+  def delete_testimonial
+    @user = User.find(params[:id])
+    @testimonial = Testimonial.find(params[:t_id])
+    rel = current_user.rels(type: :likes_testimonial, between: @testimonial)
+    if rel.nil?
+      rel[0].destroy
+    end
+    @testimonial.destroy
+
+      @testimonials = @user.testimonials
+
+      unless @user == current_user
+        t = []
+        @testimonials.each do |testimonial|
+          if testimonial.liked
+           t << testimonial
+           next
+          end
+          if testimonial.write_testimonials[0] == current_user
+           t << testimonial
+          end
+        end
+        @testimonials = t
+      end
   end
 
 end
