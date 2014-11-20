@@ -51,7 +51,7 @@ gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails'
 
 group :production do
 #   gem 'unicorn'
-  	gem 'rails_12factor'
+#  	gem 'rails_12factor'
 end
 
 gem 'jquery-ui-rails'

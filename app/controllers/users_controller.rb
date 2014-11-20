@@ -446,7 +446,6 @@ autocomplete :location, :address, :full => true
     @testimonial.destroy
 
       @testimonials = @user.testimonials
-
       unless @user == current_user
         t = []
         @testimonials.each do |testimonial|
