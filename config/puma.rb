@@ -5,10 +5,10 @@ preload_app!
 
 rackup      DefaultRackup
 port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'development'
+environment ENV['RACK_ENV'] || 'production'
 
-=begin
 on_worker_boot do
+=begin
   # worker specific setup
  # ActiveSupport.on_load(:active_record) do
  #   config = ActiveRecord::Base.configurations[Rails.env] ||
@@ -17,5 +17,5 @@ on_worker_boot do
  #   ActiveRecord::Base.establish_connection(config)
  # end
  #neo4j.start
-end
 =end
+end

@@ -49,6 +49,8 @@ gem 'jquery-turbolinks'
 gem 'puma'
 gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails'
 
+gem 'redis-timeline'
+
 group :production do
 #   gem 'unicorn'
 #  	gem 'rails_12factor'
